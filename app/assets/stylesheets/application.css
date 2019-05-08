@@ -1,0 +1,30 @@
+body{
+  color: #1b1b1b;
+  background-color: #f8f8f8;
+  font-family: 'Muli', sans-serif;
+}
+
+.item-box{
+  width: 300px;
+  height: 80px;
+  display: inline-block;
+  margin-right: 40px;
+  background-color: #030303;
+  font-size: 2rem;
+  color: #f8f8f8;
+  padding-top: 20px;
+  text-align: center;
+}
+
+nav{
+  background-color: #030303
+}
+
+.top-bar a{
+  text-decoration: none;
+  color: #f8f8f8
+}
+
+.selected{
+  background-color: #BADB73;
+}

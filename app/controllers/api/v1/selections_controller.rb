@@ -1,6 +1,6 @@
 require 'rest-client'
 
-class Api::V1::PlaylistsController < ApplicationController
+class Api::V1::SelectionsController < ApplicationController
   serialization_scope :current_user
   before_action :require_authorization
 
@@ -22,49 +22,26 @@ class Api::V1::PlaylistsController < ApplicationController
     # }
   end
 
-  def index
-    render json: User.find(current_user.id).playlists
-  end
-
-  def show
-    binding.pry
-    options = {
-      limit: 100,
-      seed_genres: 'pop',
-      min_danceability: 0.3,
-      max_danceability: 0.6,
-      max_energy: 0.4,
-      min_instrumentalness: 0.5,
-      max_speechness: 0.1,
-      max_valence: 0.5
-    }
-
-    url = 'https://api.spotify.com/v1/recommendations'
-    headers= {Authorization: "Bearer #{current_user.access_token}", params: options}
-
-    recommendations = RestClient.get url, headers
-
-    render json: recommendations
-  end
-
   def new
+    user_info = current_user
     genres = Genre.all
     audio_features = AudioFeature.all
-    render json: {:genres => genres, :audio_features => audio_features}
+    render json: {:genres => genres, :audio_features => audio_features, :user_info => user_info}
   end
 
   def create
     response = JSON.parse(request.body.read)
 
-    options = AudioFeatures.find(response.activity)
-    opions.limit = 100
-    options.seed_genres = ""
+    user = response["user_info"]
+    options = AudioFeature.find(response["activity"].to_i)
+    options = options.as_json.compact
+    options["limit"] = 100
+    options["seed_genres"] = response["genres"][0]["name"]
+
     url = 'https://api.spotify.com/v1/recommendations'
-    headers= {Authorization: "Bearer #{current_user.access_token}", params: options}
-    binding.pry
+    headers= {Authorization: "Bearer #{user["access_token"]}", params: options}
     recommendations = RestClient.get url, headers
-
-    render json: recommendations
-
+    
+    render json: ActiveModelSerializers::SerializableResource.new(JSON.parse(recommendations), each_serializer: SelectionSerializer)
   end
 end

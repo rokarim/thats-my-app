@@ -5,14 +5,10 @@ body{
 }
 
 .item-box{
-  width: 300px;
-  height: 80px;
   display: inline-block;
-  margin-right: 40px;
-  background-color: #030303;
-  font-size: 2rem;
+  margin-right: 1rem;
+  background-color: #3f4347;
   color: #f8f8f8;
-  padding-top: 20px;
   text-align: center;
 }
 

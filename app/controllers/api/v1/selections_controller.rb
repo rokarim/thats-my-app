@@ -23,7 +23,7 @@ class Api::V1::SelectionsController < ApplicationController
   end
 
   def new
-    user_info = current_user
+    user_info = current_user.id
     genres = Genre.all
     audio_features = AudioFeature.all
     render json: {:genres => genres, :audio_features => audio_features, :user_info => user_info}
@@ -32,16 +32,25 @@ class Api::V1::SelectionsController < ApplicationController
   def create
     response = JSON.parse(request.body.read)
 
-    user = response["user_info"]
+    criteria = Selection.create(audio_feature_id: response["activity"].to_i, user_id: response["user_info"].to_i)
+    SelectionGenre.create(selection_id: criteria.id, genre_id: response["genres"][0]["id"].to_i)
+    new_playlist = Playlist.create(name: response["name"], selection_id: criteria.id)
+
+    user = User.find(response["user_info"])
     options = AudioFeature.find(response["activity"].to_i)
     options = options.as_json.compact
     options["limit"] = 100
     options["seed_genres"] = response["genres"][0]["name"]
 
     url = 'https://api.spotify.com/v1/recommendations'
-    headers= {Authorization: "Bearer #{user["access_token"]}", params: options}
+    headers= {Authorization: "Bearer #{user.access_token}", params: options}
     recommendations = RestClient.get url, headers
-    
-    render json: ActiveModelSerializers::SerializableResource.new(JSON.parse(recommendations), each_serializer: SelectionSerializer)
+
+    JSON.parse(recommendations)["tracks"].each do |track|
+      Track.create(playlist_id: new_playlist.id, spotify_track_id: track["id"], name: track["name"], artist: track["artists"][0]["name"])
+    end
+
+    render json: new_playlist.id
+    # render json: ActiveModelSerializers::SerializableResource.new(JSON.parse(recommendations), each_serializer: SelectionSerializer)
   end
 end

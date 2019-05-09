@@ -1,4 +1,4 @@
-class CriteriaGenre < ApplicationRecord
+class SelectionGenre < ApplicationRecord
   belongs_to :selection
   belongs_to :genre
 

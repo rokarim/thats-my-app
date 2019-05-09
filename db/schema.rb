@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(version: 2019_05_03_204056) do
   end
 
   create_table "tracks", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "artist", null: false
     t.bigint "playlist_id", null: false
     t.string "spotify_track_id", null: false
     t.index ["playlist_id"], name: "index_tracks_on_playlist_id"

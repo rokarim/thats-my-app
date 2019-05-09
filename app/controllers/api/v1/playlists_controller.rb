@@ -27,24 +27,7 @@ class Api::V1::PlaylistsController < ApplicationController
   end
 
   def show
-    binding.pry
-    options = {
-      limit: 100,
-      seed_genres: 'pop',
-      min_danceability: 0.3,
-      max_danceability: 0.6,
-      max_energy: 0.4,
-      min_instrumentalness: 0.5,
-      max_speechness: 0.1,
-      max_valence: 0.5
-    }
-
-    url = 'https://api.spotify.com/v1/recommendations'
-    headers= {Authorization: "Bearer #{current_user.access_token}", params: options}
-
-    recommendations = RestClient.get url, headers
-
-    render json: recommendations
+    render json: Playlist.find(params[:id])
   end
 
   def new

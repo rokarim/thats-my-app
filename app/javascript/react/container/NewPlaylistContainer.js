@@ -63,6 +63,7 @@ class NewPlaylistContainer extends React.Component {
     return(
       <div>
         <FormContainer
+          user_info={this.state.user_info}
           activities={this.state.activities}
           formSubmit={this.handleFormSubmit}
           />

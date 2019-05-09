@@ -11,9 +11,11 @@ class RootContainer extends React.Component {
       user_info: {},
 
     }
+    this.getPlaylistGenerated = this.getPlaylistGenerated.bind(this)
   }
 
-  setPlaylist(playlist){
+  getPlaylistGenerated(playlist){
+    debugger
     this.setState({selectedPlaylist: playlist})
   }
 
@@ -22,15 +24,18 @@ class RootContainer extends React.Component {
       <div>
         <div className="">
           <NewPlaylistContainer
-            setPlaylist={this.getPlaylistGenerated}/>
+            setPlaylist={this.getPlaylistGenerated}
+            />
         </div>
         <div className="">
           <PlaylistIndexContainer
-            user={this.state.user_info}/>
+            setPlaylist={this.getPlaylistGenerated}
+            />
         </div>
         <div className="">
           <PlaylistShowContainer
-            playlist={this.state.selectedPlaylist}/>
+            playlist={this.state.selectedPlaylist}
+            />
         </div>
       </div>
     )

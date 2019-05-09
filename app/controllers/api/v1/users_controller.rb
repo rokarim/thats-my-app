@@ -18,7 +18,6 @@ class Api::V1::UsersController < ApplicationController
       auth_response = RestClient.post('https://accounts.spotify.com/api/token', body)
       auth_params = JSON.parse(auth_response.body)
     end
-
     header = {
       Authorization: "Bearer #{auth_params["access_token"]}"
     }

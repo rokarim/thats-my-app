@@ -23,7 +23,7 @@ class Api::V1::SelectionsController < ApplicationController
   end
 
   def new
-    user_info = current_user
+    user_info = current_user.id
     genres = Genre.all
     audio_features = AudioFeature.all
     render json: {:genres => genres, :audio_features => audio_features, :user_info => user_info}
@@ -31,10 +31,14 @@ class Api::V1::SelectionsController < ApplicationController
 
   def create
     response = JSON.parse(request.body.read)
-    
+
     selection = Selection.create(audio_feature_id: response["activity"].to_i, user_id: response["user_info"]["id"].to_i)
     selection_genre = SelectionGenre.create(selection_id: selection.id, genre_id: response["genres"][0]["id"].to_i)
     new_playlist = Playlist.create(name: response["name"], selection_id: selection.id)
+
+    criteria = Selection.create(audio_feature_id: response["activity"].to_i, user_id: response["user_info"].to_i)
+    SelectionGenre.create(selection_id: criteria.id, genre_id: response["genres"][0]["id"].to_i)
+    new_playlist = Playlist.create(name: response["name"], selection_id: criteria.id)
 
     user = User.find(response["user_info"]["id"].to_i)
     options = AudioFeature.find(response["activity"].to_i)

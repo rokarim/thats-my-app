@@ -1,4 +1,5 @@
 import React from 'react';
+import PlaylistTile from '../components/PlaylistTile'
 
 class PlaylistIndexContainer extends React.Component {
   constructor(props) {
@@ -6,6 +7,7 @@ class PlaylistIndexContainer extends React.Component {
     this.state = {
       playlists: []
     }
+    this.setPlaylist=this.setPlaylist.bind(this)
   }
 
   componentDidMount(){
@@ -27,13 +29,25 @@ class PlaylistIndexContainer extends React.Component {
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
+  setPlaylist(event){
+    this.props.setPlaylist(parseInt(event.target.id))
+  }
+
   render(){
     let playlists = this.state.playlists.map(playlist=>{
-      <div>playlist.name</div>
+      return(
+        <PlaylistTile
+          key={playlist.id}
+          id={playlist.id}
+          name={playlist.name}
+          setSelectedPlaylist={this.setPlaylist}
+        />
+      )
     })
     return(
       <div>
-      {playlists}
+      INDEX
+        {playlists}
       </div>
     )
   }

@@ -61,7 +61,7 @@ class NewPlaylistContainer extends React.Component {
 
   render(){
     return(
-      <div>
+      <div className="new-playlist-container">
         <FormContainer
           activities={this.state.activities}
           formSubmit={this.handleFormSubmit}

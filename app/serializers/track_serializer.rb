@@ -1,5 +1,5 @@
 class TrackSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :name, :artist, :spotify_track_id
 
   belongs_to :playlist
 end

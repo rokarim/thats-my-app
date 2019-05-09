@@ -1,5 +1,6 @@
 import React from 'react';
 import ActivityTile from '../components/ActivityTile'
+import TextField from '../components/TextField'
 
 class FormContainer extends React.Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class FormContainer extends React.Component {
       selectedActivity: null,
       selectedGenres: [],
       searchString: "",
-      playlist: []
+      playlist: [],
+      name: ""
     }
     this.handleClickActivities = this.handleClickActivities.bind(this)
     this.handleClickGenre = this.handleClickGenre.bind(this)
@@ -45,8 +47,7 @@ class FormContainer extends React.Component {
   }
 
   handleChange(event) {
-    let newSearchString = event.target.value
-    this.setState({ searchString: newSearchString })
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   handleSearch(event) {
@@ -80,8 +81,9 @@ class FormContainer extends React.Component {
   handleFormSubmit(event){
     event.preventDefault();
     let formPayload ={
+      name: this.state.name,
       activity: this.state.selectedActivity,
-      genres: this.state.selectedGenres,
+      genres: this.state.selectedGenres
     }
     this.props.formSubmit(formPayload)
   }
@@ -130,17 +132,31 @@ class FormContainer extends React.Component {
       <div>
         <h3>New Playlist</h3>
         <form onSubmit={this.handleFormSubmit}>
-          Choose an activity:
-          <hr />
-          <div className="activities-container">
-            {activities}
-          </div>
-          <br />
-          <br />
-          Select up to 2 genres:
-          <hr />
-          <div className="activities-container">
-            {selectedGenres}
+        <div className="row">
+            <TextField
+              className="input-label"
+              content={this.state.name}
+              label='Name'
+              name='name'
+              handlerFunction={this.handleChange}
+              />
+              <br />
+            <div className="row columns large-6 activity-form-container">
+              Choose an activity:
+              <hr />
+              <div className="row columns large-6 activities-container">
+                {activities}
+              </div>
+            </div>
+            <br />
+            <br />
+            <div className="genre-form-container">
+              Select up to 2 genres:
+              <hr />
+              <div className="activities-container">
+                {selectedGenres}
+              </div>
+            </div>
           </div>
           <input className="green-button" type="submit" value="Generate" />
         </form>

@@ -2,6 +2,8 @@ body{
   color: #1b1b1b;
   background-color: #f8f8f8;
   font-family: 'Muli', sans-serif;
+  font-size: 2rem;
+  margin: 0 10% 10% 10%
 }
 
 .item-box{
@@ -22,5 +24,26 @@ nav{
 }
 
 .selected{
-  background-color: #BADB73;
+  background-color: #1eb953;
+}
+
+.show-container{
+  float: left;
+  margin-left: 2%;
+}
+
+.index-container{
+  float: left;
+}
+
+.new-playlist-container{
+  font-size: 1rem;
+  background-color: #efefef;
+  margin-bottom: 2%
+}
+
+.activity-form-container{
+  float: left
+}
+.genre-form-container{
 }

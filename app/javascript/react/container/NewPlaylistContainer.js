@@ -61,7 +61,7 @@ class NewPlaylistContainer extends React.Component {
 
   render(){
     return(
-      <div>
+      <div className="new-playlist-container">
         <FormContainer
           user_info={this.state.user_info}
           activities={this.state.activities}

@@ -132,24 +132,31 @@ class FormContainer extends React.Component {
       <div>
         <h3>New Playlist</h3>
         <form onSubmit={this.handleFormSubmit}>
-          <TextField
-            className="input-label"
-            content={this.state.name}
-            label='Name'
-            name='name'
-            handlerFunction={this.handleChange}
-            />
-          Choose an activity:
-          <hr />
-          <div className="activities-container">
-            {activities}
-          </div>
-          <br />
-          <br />
-          Select up to 2 genres:
-          <hr />
-          <div className="activities-container">
-            {selectedGenres}
+        <div className="row">
+            <TextField
+              className="input-label"
+              content={this.state.name}
+              label='Name'
+              name='name'
+              handlerFunction={this.handleChange}
+              />
+              <br />
+            <div className="row columns large-6 activity-form-container">
+              Choose an activity:
+              <hr />
+              <div className="row columns large-6 activities-container">
+                {activities}
+              </div>
+            </div>
+            <br />
+            <br />
+            <div className="genre-form-container">
+              Select up to 2 genres:
+              <hr />
+              <div className="activities-container">
+                {selectedGenres}
+              </div>
+            </div>
           </div>
           <input className="green-button" type="submit" value="Generate" />
         </form>

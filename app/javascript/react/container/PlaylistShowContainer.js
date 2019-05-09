@@ -4,14 +4,14 @@ class PlaylistShowContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      playlist: this.props.playlist,
-      tracks: []
+      selectedPlaylist: this.props.playlist,
+      playlist: ""
     }
   }
 
   componentDidMount(){
-    if (this.state.playlist !== null){
-      fetch(`/api/v1/playlists/2`,
+    if(this.state.selectedPlaylist !== null){
+      fetch(`/api/v1/playlists/${this.props.selectedPlaylist}`,
             {credentials: 'same-origin'})
         .then(response => {
           if (response.ok) {
@@ -24,23 +24,26 @@ class PlaylistShowContainer extends React.Component {
         })
         .then(response => response.json())
         .then(body => {
-          this.setState({ name: body.name,
-                          tracks: body.tracks })
+          this.setState({ playlist: body })
           debugger
         })
         .catch(error => console.error(`Error in fetch: ${error.message}`));
     }
+
   }
 
   render(){
-    let tracks = this.state.tracks.map(track=>{
-      <div>track.name</div>
-    })
+    // if (this.state.playlist.tracks !== null){
+    //   let tracks = this.state.playlist.tracks.map(track =>{
+    //     return(
+    //       <div>track.name</div>
+    //     )
+    //   })
+    // }
     return(
       <div>
       SHOW
         <ul>
-          {tracks}
         </ul>
       </div>
     )

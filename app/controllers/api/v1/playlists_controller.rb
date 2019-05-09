@@ -44,7 +44,6 @@ class Api::V1::PlaylistsController < ApplicationController
     options.seed_genres = ""
     url = 'https://api.spotify.com/v1/recommendations'
     headers= {Authorization: "Bearer #{current_user.access_token}", params: options}
-    binding.pry
     recommendations = RestClient.get url, headers
 
     render json: recommendations

@@ -5,28 +5,17 @@ class PlaylistIndexContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      playlists: []
+      playlists: [],
+      selectedPlaylist: null
     }
     this.setPlaylist=this.setPlaylist.bind(this)
   }
 
-  componentDidMount(){
-    fetch('/api/v1/playlists',
-          {credentials: 'same-origin'})
-      .then(response => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status}(${response.statusText})`,
-          error = new Error(errorMessage);
-          throw(error);
-        }
-      })
-      .then(response => response.json())
-      .then(body => {
-        this.setState({playlists: body})
-      })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+  componentWillReceiveProps(newProps) {
+    this.setState({playlists: newProps.playlists})
+    if (newProps.selectedPlaylist !== this.state.selectedPlaylist){
+      this.setState({selectedPlaylist: newProps.selectedPlaylist})
+    }
   }
 
   setPlaylist(event){
@@ -34,12 +23,19 @@ class PlaylistIndexContainer extends React.Component {
   }
 
   render(){
+    let className = ""
     let playlists = this.state.playlists.map(playlist=>{
+      if (playlist.id === this.state.selectedPlaylist){
+        className = "selected"
+      } else {
+        className = ""
+      }
       return(
         <PlaylistTile
           key={playlist.id}
           id={playlist.id}
           name={playlist.name}
+          className={className}
           setSelectedPlaylist={this.setPlaylist}
         />
       )

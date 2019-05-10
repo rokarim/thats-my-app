@@ -32,7 +32,7 @@ class NewPlaylistContainer extends React.Component {
 
   handleFormSubmit(formPayload){
     formPayload.user_info = this.state.user_info
-    fetch('/api/v1/selections', {
+    fetch('/api/v1/playlists', {
       method: 'POST',
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },

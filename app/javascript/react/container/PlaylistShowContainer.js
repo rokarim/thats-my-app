@@ -4,44 +4,16 @@ class PlaylistShowContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedPlaylist: this.props.playlist,
+      selectedPlaylist: null,
       playlist: [],
       message: ""
     }
-    this.getTracks=this.getTracks.bind(this)
     this.deletePlaylist=this.deletePlaylist.bind(this)
   }
 
-  componentWillReceiveProps() {
-    this.setState({selectedPlaylist: this.props.playlist})
-    if(this.state.selectedPlaylist !== null){
-      this.getTracks()
-    }
-  }
-
-  componentDidMount(){
-    if(this.state.selectedPlaylist !== null){
-      this.getTracks()
-    }
-  }
-
-  getTracks(){
-    fetch(`/api/v1/playlists/${this.state.selectedPlaylist}`,
-          {credentials: 'same-origin'})
-      .then(response => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status}(${response.statusText})`,
-          error = new Error(errorMessage);
-          throw(error);
-        }
-      })
-      .then(response => response.json())
-      .then(body => {
-        this.setState({ playlist: body })
-      })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+  componentWillReceiveProps(newProps) {
+    this.setState({selectedPlaylist: newProps.selectedPlaylist})
+    this.setState({playlist: newProps.playlistToShow})
   }
 
   deletePlaylist(){
@@ -50,19 +22,22 @@ class PlaylistShowContainer extends React.Component {
         method: 'DELETE',
         credentials: 'same-origin'
       })
-      .then((result) => { this.setState({selectedPlaylist: null }) })
+      .then((result) => {
+        this.props.deletePlaylist(this.state.selectedPlaylist)
+        this.setState({selectedPlaylist: null })
+      })
     }
   }
 
   render(){
     let tracks = "No tracks to show"
     let deleteButton = ""
-    if (this.state.selectedPlaylist !== null && this.state.playlist.tracks !== undefined && this.state.playlist.tracks.length !== 0){
+    if (this.state.selectedPlaylist !== null && this.state.playlist.tracks !== undefined){
       deleteButton = <button id={this.state.selectedPlaylist} className="delete-playlist" onClick={this.deletePlaylist}>Delete playlist</button>
       tracks = this.state.playlist.tracks.map(track =>{
         return(
           <TrackTile
-            key={track.spotify_track_id}
+            key={track.id}
             id={track.id}
             name={track.name}
             artist={track.artist}
@@ -72,9 +47,7 @@ class PlaylistShowContainer extends React.Component {
     }
     return(
       <div>
-      <div>
         {deleteButton}
-      </div>
         {tracks}
       </div>
     )

@@ -2,10 +2,11 @@ import React from 'react'
 
 const PlaylistTile = props => {
   return(
-    <div>
-      <div id={props.id}>
+    <div id={props.id} className="track-tile">
+      <div >
         {props.name} - {props.artist}
       </div>
+      <hr />
     </div>
   )
 }

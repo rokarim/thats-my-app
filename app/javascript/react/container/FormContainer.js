@@ -93,6 +93,8 @@ class FormContainer extends React.Component {
     let activities = this.props.activities.map(activity => {
       if (activity.id === this.state.selectedActivity){
         activityClass = "selected"
+      } else {
+        activityClass = ""
       }
       return(
         <ActivityTile

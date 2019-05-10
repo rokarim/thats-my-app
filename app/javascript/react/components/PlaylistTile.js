@@ -2,8 +2,8 @@ import React from 'react'
 
 const PlaylistTile = props => {
   return(
-    <div>
-      <div id={props.id} onClick={props.setSelectedPlaylist}>
+    <div className = "playlist-tile">
+      <div id={props.id} className={props.className} onClick={props.setSelectedPlaylist}>
         {props.name}
       </div>
     </div>

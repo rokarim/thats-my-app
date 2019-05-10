@@ -7,35 +7,85 @@ class RootContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedPlaylist: null
+      selectedPlaylist: null,
+      playlists: null,
+      playlistToShow: null
     }
-    this.getPlaylistGenerated = this.getPlaylistGenerated.bind(this)
+    this.getPlaylists = this.getPlaylists.bind(this)
+    this.getPlaylistSelected = this.getPlaylistSelected.bind(this)
+    this.refreshPlaylists = this.refreshPlaylists.bind(this)
+    this.deletePlaylist = this.deletePlaylist.bind(this)
   }
 
-  getPlaylistGenerated(playlist){
-    this.setState({selectedPlaylist: playlist})
+  getPlaylists(){
+    fetch('/api/v1/playlists',
+          {credentials: 'same-origin'})
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status}(${response.statusText})`,
+          error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => response.json())
+      .then(body => {
+        this.setState({playlists: body})
+      })
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  componentDidMount(){
+    this.getPlaylists()
+  }
+
+  refreshPlaylists(playlist){
+    let refreshedPlaylists = this.state.playlists
+    refreshedPlaylists = refreshedPlaylists.concat(playlist)
+
+    this.setState({playlistToShow: playlist,
+                  selectedPlaylist: playlist.id,
+                  playlists: refreshedPlaylists})
+  }
+
+  deletePlaylist(playlist){
+    let updatedPlaylists = this.state.playlists
+    let playlistToDelete = this.state.playlists.find(item => item.id === playlist)
+    updatedPlaylists.splice(updatedPlaylists.indexOf(playlistToDelete), 1)
+    this.setState({selectedPlaylist: null,
+                    playlists: updatedPlaylists})
+  }
+
+  getPlaylistSelected(playlist){
+    this.setState({selectedPlaylist: playlist,
+                    playlistToShow: this.state.playlists.find(item => item.id === playlist)})
   }
 
   render(){
-
     return(
       <div className="row">
         <div className="row columns medium-12 large-8 new-playlist-container">
           <NewPlaylistContainer
-            setPlaylist={this.getPlaylistGenerated}
+            setPlaylist={this.refreshPlaylists}
           />
         </div>
-        <div className="row columns medium-9 index-container">
+        <div className="row columns medium-4 large-6 index-container">
           <PlaylistIndexContainer
-            setPlaylist={this.getPlaylistGenerated}
+            playlists={this.state.playlists}
+            setPlaylist={this.getPlaylistSelected}
+            selectedPlaylist={this.state.selectedPlaylist}
           />
         </div>
-        <div className="row columns medium-3 large-4 show-container">
+        <div className="row columns medium-8 large-6 show-container">
           <PlaylistShowContainer
-            playlist={this.state.selectedPlaylist}
-            setPlaylist={this.getPlaylistGenerated}
+            selectedPlaylist={this.state.selectedPlaylist}
+            playlistToShow={this.state.playlistToShow}
+            setPlaylist={this.getPlaylistSelected}
+            deletePlaylist={this.deletePlaylist}
           />
         </div>
+
       </div>
     )
   }

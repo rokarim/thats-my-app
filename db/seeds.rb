@@ -132,7 +132,7 @@ end
 
 audio_feature = [
   {
-    activity_name: 'Studying',
+    activity_name: 'Focus',
     min_danceability: 0.3,
     max_danceability: 0.6,
     max_energy: 0.4,
@@ -142,7 +142,7 @@ audio_feature = [
     max_loudness: -10
   },
   {
-    activity_name: 'Working out',
+    activity_name: 'Fast Paced',
     max_acousticness: 0.3,
     min_danceability: 0.3,
     min_energy: 0.6,
@@ -153,7 +153,7 @@ audio_feature = [
     max_loudness: 0
   },
   {
-    activity_name: 'Party time',
+    activity_name: 'Cheerful',
     max_acousticness: 0.5,
     min_danceability: 0.4,
     min_energy: 0.4,
@@ -164,7 +164,7 @@ audio_feature = [
     max_loudness: 0
   },
   {
-    activity_name: 'Chillin',
+    activity_name: 'Calm Down',
     max_acousticness: 0.1,
     min_danceability: 0.4,
     max_danceability: 0.8,

@@ -46,7 +46,8 @@ class PlaylistIndexContainer extends React.Component {
     })
     return(
       <div>
-      INDEX
+      PLAYLISTS
+      <hr />
         {playlists}
       </div>
     )

@@ -2,7 +2,6 @@ body{
   color: #1b1b1b;
   background-color: #f8f8f8;
   font-family: 'Muli', sans-serif;
-  font-size: 2rem;
   margin: 0 10% 10% 10%
 }
 
@@ -37,7 +36,6 @@ nav{
 }
 
 .new-playlist-container{
-  font-size: 1rem;
   background-color: #efefef;
   margin-bottom: 2%
 }
@@ -46,4 +44,7 @@ nav{
   float: left
 }
 .genre-form-container{
+}
+.delete-playlist{
+  float:right;
 }

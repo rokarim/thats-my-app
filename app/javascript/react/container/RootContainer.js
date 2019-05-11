@@ -65,27 +65,28 @@ class RootContainer extends React.Component {
   render(){
     return(
       <div className="row">
-        <div className="row columns medium-12 large-8 new-playlist-container">
+        <div className="columns medium-12 large-12 new-playlist-container">
           <NewPlaylistContainer
             setPlaylist={this.refreshPlaylists}
           />
         </div>
-        <div className="row columns medium-4 large-6 index-container">
-          <PlaylistIndexContainer
-            playlists={this.state.playlists}
-            setPlaylist={this.getPlaylistSelected}
-            selectedPlaylist={this.state.selectedPlaylist}
-          />
+        <div className="row">
+          <div className="columns medium-4 large-8 index-container">
+            <PlaylistIndexContainer
+              playlists={this.state.playlists}
+              setPlaylist={this.getPlaylistSelected}
+              selectedPlaylist={this.state.selectedPlaylist}
+            />
+          </div>
+          <div className="columns medium-4 large-8 show-container">
+            <PlaylistShowContainer
+              selectedPlaylist={this.state.selectedPlaylist}
+              playlistToShow={this.state.playlistToShow}
+              setPlaylist={this.getPlaylistSelected}
+              deletePlaylist={this.deletePlaylist}
+            />
+          </div>
         </div>
-        <div className="row columns medium-8 large-6 show-container">
-          <PlaylistShowContainer
-            selectedPlaylist={this.state.selectedPlaylist}
-            playlistToShow={this.state.playlistToShow}
-            setPlaylist={this.getPlaylistSelected}
-            deletePlaylist={this.deletePlaylist}
-          />
-        </div>
-
       </div>
     )
   }

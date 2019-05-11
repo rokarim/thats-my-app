@@ -37,7 +37,7 @@ class PlaylistShowContainer extends React.Component {
       tracks = this.state.playlist.tracks.map(track =>{
         return(
           <TrackTile
-            key={track.id}
+            key={track.spotify_track_id}
             id={track.id}
             name={track.name}
             artist={track.artist}

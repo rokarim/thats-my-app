@@ -12,7 +12,7 @@ class NewPlaylistContainer extends React.Component {
   }
 
   componentDidMount(){
-    fetch('/api/v1/selections/new')
+    fetch('/api/v1/playlists/new')
       .then(response => {
         if (response.ok) {
           return response;

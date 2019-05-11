@@ -71,14 +71,14 @@ class RootContainer extends React.Component {
           />
         </div>
         <div className="row">
-          <div className="columns medium-4 large-8 index-container">
+          <div className="columns medium-4 large-4 index-container">
             <PlaylistIndexContainer
               playlists={this.state.playlists}
               setPlaylist={this.getPlaylistSelected}
               selectedPlaylist={this.state.selectedPlaylist}
             />
           </div>
-          <div className="columns medium-4 large-8 show-container">
+          <div className="columns medium-8 large-8 show-container">
             <PlaylistShowContainer
               selectedPlaylist={this.state.selectedPlaylist}
               playlistToShow={this.state.playlistToShow}

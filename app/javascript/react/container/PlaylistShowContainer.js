@@ -9,6 +9,7 @@ class PlaylistShowContainer extends React.Component {
       message: ""
     }
     this.deletePlaylist=this.deletePlaylist.bind(this)
+    this.addToSpotify=this.addToSpotify.bind(this)
   }
 
   componentWillReceiveProps(newProps) {
@@ -29,10 +30,45 @@ class PlaylistShowContainer extends React.Component {
     }
   }
 
+  addToSpotify(event){
+    let payload={playlist_id: event.target.id}
+    fetch('api/v1/spotify', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status}(${response.statusText})` ,
+          error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => response.json())
+      .then(body => {
+
+      })
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
   render(){
     let tracks = "No tracks to show"
     let deleteButton = ""
+    let addToSpotifyButton = ""
     if (this.state.selectedPlaylist !== null && this.state.playlist.tracks !== undefined){
+      let status = ""
+      let buttonText = ""
+      if (this.state.playlist.saved === false){
+        status = ""
+        buttonText = "Create on Spotify"
+      } else {
+        status = "disabled"
+        buttonText = "Check it out on Spotify!"
+      }
+      addToSpotifyButton = <button id={this.state.selectedPlaylist} className="add-to-spotify" onClick={this.addToSpotify}>{buttonText}</button>
       deleteButton = <button id={this.state.selectedPlaylist} className="delete-playlist" onClick={this.deletePlaylist}>Delete playlist</button>
       tracks = this.state.playlist.tracks.map(track =>{
         return(
@@ -47,6 +83,7 @@ class PlaylistShowContainer extends React.Component {
     }
     return(
       <div>
+        {addToSpotifyButton}
         {deleteButton}
         {tracks}
       </div>

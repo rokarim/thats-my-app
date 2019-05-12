@@ -15,6 +15,8 @@ class RootContainer extends React.Component {
     this.getPlaylistSelected = this.getPlaylistSelected.bind(this)
     this.refreshPlaylists = this.refreshPlaylists.bind(this)
     this.deletePlaylist = this.deletePlaylist.bind(this)
+    // this.updateAccurate=this.updateAccurate.bind(this)
+    // this.updateSaved=this.updateSaved.bind(this)
   }
 
   getPlaylists(){
@@ -46,7 +48,9 @@ class RootContainer extends React.Component {
 
     this.setState({playlistToShow: playlist,
                   selectedPlaylist: playlist.id,
-                  playlists: refreshedPlaylists})
+                  accurate: playlist.accurate,
+                  saved: playlist.saved,
+                  playlists: refreshedPlaylists,})
   }
 
   deletePlaylist(playlist){
@@ -61,6 +65,14 @@ class RootContainer extends React.Component {
     this.setState({selectedPlaylist: playlist,
                     playlistToShow: this.state.playlists.find(item => item.id === playlist)})
   }
+
+  // updateAccurate(){
+  //   this.setState({accurate: !this.state.accurate})
+  // }
+  //
+  // updateSaved(){
+  //   this.setState({saved: !this.state.saved})
+  // }
 
   render(){
     return(
@@ -82,6 +94,8 @@ class RootContainer extends React.Component {
             <PlaylistShowContainer
               selectedPlaylist={this.state.selectedPlaylist}
               playlistToShow={this.state.playlistToShow}
+              updateAccurate={this.updateAccurate}
+              updateSaved={this.updateSaved}
               setPlaylist={this.getPlaylistSelected}
               deletePlaylist={this.deletePlaylist}
             />

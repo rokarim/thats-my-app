@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router'
 import FormContainer from './FormContainer'
 
 class NewPlaylistContainer extends React.Component {
@@ -42,6 +43,9 @@ class NewPlaylistContainer extends React.Component {
       if (response.ok) {
         return response;
       } else {
+        if (response.status === 500){
+          window.location.href = '/users/sign_in'
+        }
         let errorMessage = `${response.status}(${response.statusText})` ,
         error = new Error(errorMessage);
         throw(error);
@@ -50,7 +54,9 @@ class NewPlaylistContainer extends React.Component {
     .then(response => response.json())
     .then(body => {
       if(body.error){
+
         this.setState({ errors: body.error })
+
       } else {
         this.props.setPlaylist(body)
       }

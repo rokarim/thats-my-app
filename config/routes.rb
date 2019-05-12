@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :playlists, only: [:index, :show, :new, :create, :destroy]
+      resources :playlists, only: [:index, :show, :new, :update, :create, :destroy]
       resources :spotify, only: [:create]
       post '/genres/search', to: 'genres#search'
     end

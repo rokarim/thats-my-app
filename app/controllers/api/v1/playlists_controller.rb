@@ -28,16 +28,23 @@ class Api::V1::PlaylistsController < ApplicationController
     options = options.as_json.compact
     options["limit"] = 100
     options["seed_genres"] = response["genres"][0]["name"]
-
     url = 'https://api.spotify.com/v1/recommendations'
     headers= {Authorization: "Bearer #{user.access_token}", params: options}
-    recommendations = RestClient.get url, header
+    recommendations = RestClient.get url, headers
 
     JSON.parse(recommendations)["tracks"].each do |track|
       Track.create(playlist_id: new_playlist.id, spotify_track_id: track["id"], name: track["name"], artist: track["artists"][0]["name"])
     end
 
     render json: new_playlist
+  end
+
+  def update
+    accurate_playlist = Playlist.find(params[:id])
+    accurate_playlist.accurate = true
+    accurate_playlist.save
+
+    render json: accurate_playlist.id
   end
 
   def destroy

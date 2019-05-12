@@ -207,7 +207,7 @@ class FormContainer extends React.Component {
               />
               <br />
             <div className="row columns large-6 activity-form-container">
-              Choose an activity:
+              Select one style:
               <hr />
               <div className="row columns large-6 activities-container">
                 {activities}

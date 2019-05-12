@@ -16,7 +16,9 @@ class PlaylistShowContainer extends React.Component {
 
   componentWillReceiveProps(newProps) {
     this.setState({selectedPlaylist: newProps.selectedPlaylist,
-                  playlist: newProps.playlistToShow })
+                  playlist: newProps.playlistToShow,
+                  accurate: newProps.accurate,
+                  saved: newProps.saved,})
   }
 
   deletePlaylist(){
@@ -33,6 +35,7 @@ class PlaylistShowContainer extends React.Component {
   }
 
   addToSpotify(event){
+    this.props.updateSaved()
     let payload={playlist_id: event.target.id}
     fetch('api/v1/spotify', {
       method: 'POST',
@@ -58,6 +61,7 @@ class PlaylistShowContainer extends React.Component {
   }
 
   markAsAccurate(event){
+    this.props.updateAccurate()
     fetch(`api/v1/playlists/${event.target.id}`, {
       method: 'PUT',
       credentials: 'same-origin',
@@ -76,10 +80,7 @@ class PlaylistShowContainer extends React.Component {
         }
       })
       .then(response => response.json())
-      .then(body => {
-        this.setState({accurate: true})
-        debugger
-      })
+      .then(body => { })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
@@ -93,7 +94,7 @@ class PlaylistShowContainer extends React.Component {
       let status = ""
       let accurateStatus = ""
       let buttonText = ""
-      if (this.state.playlist.saved === false){
+      if (this.state.saved === false){
         status = ""
         buttonText = "Create on Spotify"
       } else {
@@ -101,7 +102,7 @@ class PlaylistShowContainer extends React.Component {
         buttonText = "Check it out on Spotify!"
       }
 
-      if (this.state.playlist.accurate === false){
+      if (this.state.accurate === false){
         accurateStatus = ""
         accurateButtonText = "Mark as accurate"
       } else {

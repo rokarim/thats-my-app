@@ -67,12 +67,15 @@ class NewPlaylistContainer extends React.Component {
 
   render(){
     return(
-      <div className="new-playlist-container">
-        <FormContainer
-          user_info={this.state.user_info}
-          activities={this.state.activities}
-          formSubmit={this.handleFormSubmit}
-          />
+      <div>
+      <div className="form-modal"></div>
+        <div className={`new-playlist-container ${this.props.className}`}>
+          <FormContainer
+            user_info={this.state.user_info}
+            activities={this.state.activities}
+            formSubmit={this.handleFormSubmit}
+            />
+        </div>
       </div>
     )
   }

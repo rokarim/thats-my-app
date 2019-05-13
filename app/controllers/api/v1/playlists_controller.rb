@@ -22,6 +22,9 @@ class Api::V1::PlaylistsController < ApplicationController
     refresh_token(user)
     selection = Selection.create(audio_feature_id: response["activity"].to_i, user_id: response["user_info"].to_i)
     selection_genre = SelectionGenre.create(selection_id: selection.id, genre_id: response["genres"][0]["id"].to_i)
+    if response["genres"][1]
+      selection_genre = SelectionGenre.create(selection_id: selection.id, genre_id: response["genres"][1]["id"].to_i)
+    end
     new_playlist = Playlist.create(name: response["name"], selection_id: selection.id)
 
     options = AudioFeature.find(response["activity"].to_i)

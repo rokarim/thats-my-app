@@ -39,7 +39,9 @@ class FormContainer extends React.Component {
         this.state.selectedGenres.find(item => item.id === event.target.id)=== undefined){
       let selectedArray = this.state.selectedGenres
       selectedArray.push({id: event.target.id, name: event.target.innerText})
-      this.setState({selectedGenres: selectedArray})
+      this.setState({selectedGenres: selectedArray,
+                      searchString: "",
+                      genres: []})
     }
   }
 
@@ -55,6 +57,7 @@ class FormContainer extends React.Component {
   }
 
   handleSearch(event) {
+    this.handleChange(event)
     event.preventDefault()
     const body = JSON.stringify({
       search_string: this.state.searchString
@@ -78,7 +81,7 @@ class FormContainer extends React.Component {
         return response.json();
       })
       .then(body => {
-        this.setState({ genres: body, searchString: ""})
+        this.setState({ genres: body})
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
@@ -190,13 +193,13 @@ class FormContainer extends React.Component {
 
     return(
       <div>
-        <h3>New Playlist</h3>
+        <h3>Create a Playlist</h3>
         <div className='errors-display-container'>
           <FormErrors
             formErrors={this.state.formErrors}
             />
         </div>
-        <form onSubmit={this.handleFormSubmit}>
+        <form className="form-new-playlist" onSubmit={this.handleFormSubmit}>
         <div className="row">
             <TextField
               className="input-label"
@@ -206,32 +209,30 @@ class FormContainer extends React.Component {
               handlerFunction={this.handleChange}
               />
               <br />
-            <div className="row columns large-6 activity-form-container">
+              <br />
+            <div className="columns large-6 activity-form-container">
               Select one style:
               <hr />
-              <div className="row columns large-6 activities-container">
+              <div className="activities-container">
                 {activities}
               </div>
             </div>
             <br />
             <br />
-            <div className="genre-form-container">
+            <div className="columns large-6 genre-form-container">
               Select up to 2 genres:
               <hr />
               <div className="activities-container">
                 {selectedGenres}
               </div>
             </div>
+              <input className="inputField" type='text' name='searchString' value={this.state.searchString} onChange={this.handleSearch}/>
+              <div className="activities-container">
+                {genres}
+              </div>
           </div>
           <input className="green-button" type="submit" value="Generate" />
         </form>
-        <form className= "search-bar" onSubmit={this.handleSearch}>
-          <input className="inputField" type='text' name='searchString' value={this.state.searchString} onChange={this.handleChange} />
-          <input className="Search green-button" type='submit' value='Search' />
-        </form>
-        <div className="activities-container">
-          {genres}
-        </div>
       </div>
     )
   }

@@ -41,10 +41,17 @@ class PlaylistIndexContainer extends React.Component {
       )
     })
     return(
-      <div>
-      PLAYLISTS
+      <div className="row medium-12 large-12">
+        <div>
+          <div className="index-title">
+            PLAYLISTS
+          </div>
+          <i onClick={this.props.showForm} className="fas fa-plus"></i>
+        </div>
       <hr />
-        {playlists}
+        <div className="list-container">
+          {playlists}
+        </div>
       </div>
     )
   }

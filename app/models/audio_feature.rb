@@ -1,4 +1,7 @@
 class AudioFeature < ApplicationRecord
+  has_many :selections
+  has_many :playlists, through: :selections
+  
   validates :activity_name, presence: true
   validates :min_acousticness, numericality: true, allow_nil: true
   validates :max_acousticness, numericality: true, allow_nil: true

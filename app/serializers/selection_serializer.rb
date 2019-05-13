@@ -1,4 +1,7 @@
 class SelectionSerializer < ActiveModel::Serializer
+  attributes :id
+
+  has_many :playlists
   # attributes :track_info
   # def track_info
   #   track_info_array = []

@@ -11,7 +11,8 @@ class RootContainer extends React.Component {
       playlists: null,
       playlistToShow: null,
       accurate: false,
-      saved: false
+      saved: false,
+      formVisible: false
     }
     this.getPlaylists = this.getPlaylists.bind(this)
     this.getPlaylistSelected = this.getPlaylistSelected.bind(this)
@@ -19,6 +20,7 @@ class RootContainer extends React.Component {
     this.deletePlaylist = this.deletePlaylist.bind(this)
     this.updateAccurate=this.updateAccurate.bind(this)
     this.updateSaved=this.updateSaved.bind(this)
+    this.showForm=this.showForm.bind(this)
   }
 
   getPlaylists(){
@@ -79,13 +81,25 @@ class RootContainer extends React.Component {
     this.setState({saved: !this.state.saved})
   }
 
+  showForm(){
+    this.setState({formVisible: !this.state.formVisible})
+  }
+
   render(){
+    let newPlaylist = ""
+    let className = ""
+    if (this.state.formVisible === true){
+      className = "visible"
+      newPlaylist =
+        <NewPlaylistContainer
+          className={className}
+          setPlaylist={this.refreshPlaylists}
+        />
+    }
     return(
-      <div className="row">
-        <div className="columns medium-12 large-12 new-playlist-container">
-          <NewPlaylistContainer
-            setPlaylist={this.refreshPlaylists}
-          />
+      <div className="row root-container">
+        <div className="columns medium-12 large-12">
+          {newPlaylist}
         </div>
         <div className="row">
           <div className="columns medium-4 large-4 index-container">
@@ -93,6 +107,7 @@ class RootContainer extends React.Component {
               playlists={this.state.playlists}
               setPlaylist={this.getPlaylistSelected}
               selectedPlaylist={this.state.selectedPlaylist}
+              showForm={this.showForm}
             />
           </div>
           <div className="columns medium-8 large-8 show-container">

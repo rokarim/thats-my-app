@@ -1,5 +1,6 @@
 import React from 'react';
 import TrackTile from '../components/TrackTile'
+import PlaylistHeader from '../components/PlaylistHeader'
 class PlaylistShowContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -85,6 +86,7 @@ class PlaylistShowContainer extends React.Component {
   }
 
   render(){
+    let header = ""
     let tracks = "No tracks to show"
     let deleteButton = ""
     let addToSpotifyButton = ""
@@ -94,6 +96,7 @@ class PlaylistShowContainer extends React.Component {
       let status = ""
       let accurateStatus = ""
       let buttonText = ""
+
       if (this.state.saved === false){
         status = ""
         buttonText = "Create on Spotify"
@@ -113,6 +116,7 @@ class PlaylistShowContainer extends React.Component {
       addToSpotifyButton = <button id={this.state.selectedPlaylist} className='add-to-spotify' onClick={this.addToSpotify} disabled={status}>{buttonText}</button>
       markAsAccurate = <button id={this.state.selectedPlaylist} className='mark-as-accurate' onClick={this.markAsAccurate} disabled={accurateStatus}>{accurateButtonText}</button>
       deleteButton = <button id={this.state.selectedPlaylist} className="delete-playlist" onClick={this.deletePlaylist}>Delete playlist</button>
+
       tracks = this.state.playlist.tracks.map(track =>{
         return(
           <TrackTile
@@ -123,13 +127,31 @@ class PlaylistShowContainer extends React.Component {
             />
         )
       })
+
+      header =
+        <PlaylistHeader
+          key={this.state.playlist.id}
+          id={this.state.playlist.id}
+          genres={this.state.playlist.genres}
+          style={this.state.playlist.audio_feature.activity_name}
+          length={this.state.playlist.tracks.length}
+          />
     }
     return(
-      <div>
-        {markAsAccurate}
-        {addToSpotifyButton}
-        {deleteButton}
-        {tracks}
+      <div >
+        <div className="playlist-header-container">
+          {header}
+          {markAsAccurate}
+          {addToSpotifyButton}
+          {deleteButton}
+        </div>
+        <div className="track-list-container">
+        TRACKS
+        <hr />
+          <div className="track-list">
+            {tracks}
+          </div>
+        </div>
       </div>
     )
   }

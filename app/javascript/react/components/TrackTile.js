@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PlaylistTile = props => {
+const TrackTile = props => {
   return(
     <div id={props.id} className="track-tile">
       <div >
@@ -11,4 +11,4 @@ const PlaylistTile = props => {
   )
 }
 
-export default PlaylistTile;
+export default TrackTile;

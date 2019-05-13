@@ -28,6 +28,11 @@ class Api::V1::PlaylistsController < ApplicationController
     options = options.as_json.compact
     options["limit"] = 100
     options["seed_genres"] = response["genres"][0]["name"]
+    if response["genres"][1]
+      options["seed_genres"] << ","
+      options["seed_genres"] << response["genres"][1]["name"]
+    end
+
     url = 'https://api.spotify.com/v1/recommendations'
     headers= {Authorization: "Bearer #{user.access_token}", params: options}
     recommendations = RestClient.get url, headers

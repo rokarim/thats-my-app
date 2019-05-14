@@ -48,7 +48,7 @@ class RootContainer extends React.Component {
 
   refreshPlaylists(playlist){
     let refreshedPlaylists = this.state.playlists
-    refreshedPlaylists = refreshedPlaylists.concat(playlist)
+    refreshedPlaylists.unshift(playlist)
 
     this.setState({playlistToShow: playlist,
                   selectedPlaylist: playlist.id,
@@ -93,16 +93,14 @@ class RootContainer extends React.Component {
       newPlaylist =
         <NewPlaylistContainer
           className={className}
+          changeFormVisibility={this.showForm}
           setPlaylist={this.refreshPlaylists}
         />
     }
     return(
       <div className="row root-container">
-        <div className="columns medium-12 large-12">
-          {newPlaylist}
-        </div>
         <div className="row">
-          <div className="columns medium-4 large-4 index-container">
+          <div className="index-container small-3 columns">
             <PlaylistIndexContainer
               playlists={this.state.playlists}
               setPlaylist={this.getPlaylistSelected}
@@ -110,7 +108,7 @@ class RootContainer extends React.Component {
               showForm={this.showForm}
             />
           </div>
-          <div className="columns medium-8 large-8 show-container">
+          <div className="show-container small-9 columns">
             <PlaylistShowContainer
               selectedPlaylist={this.state.selectedPlaylist}
               playlistToShow={this.state.playlistToShow}
@@ -122,6 +120,9 @@ class RootContainer extends React.Component {
               deletePlaylist={this.deletePlaylist}
             />
           </div>
+        </div>
+        <div className="new-playlist-container">
+          {newPlaylist}
         </div>
       </div>
     )

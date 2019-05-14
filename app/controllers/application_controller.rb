@@ -19,19 +19,15 @@ class ApplicationController < ActionController::Base
       authorization_response = RestClient.post('https://accounts.spotify.com/api/token', body)
       authorization_params = JSON.parse(authorization_response.body)
       user.update(access_token: authorization_params["access_token"])
-      # begin
-      #   RestClient.post('https://accounts.spotify.com/api/token', body)
-      # rescue => e
-      #   e.response
-      #   if JSON.parse(e.response.body)["error"] != "invalid_request"
-      #     authorization_params = JSON.parse(authorization_response.body)
-      #     user.update(access_token: authorization_params["access_token"])
-      #   else
-      #     redirect_to login_index_path
-      #     binding.pry
-      #     return :invalid_request
-      #   end
-      # end
+      RestClient.post('https://accounts.spotify.com/api/token', body)
+      if JSON.parse(e.response.body)["error"] != "invalid_request"
+        authorization_params = JSON.parse(authorization_response.body)
+        user.update(access_token: authorization_params["access_token"])
+      else
+        redirect_to login_index_path
+        binding.pry
+        return :invalid_request
+      end
     end
   end
 end

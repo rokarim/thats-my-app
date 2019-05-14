@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_03_204056) do
+ActiveRecord::Schema.define(version: 2019_05_14_163619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2019_05_03_204056) do
     t.string "artist", null: false
     t.bigint "playlist_id", null: false
     t.string "spotify_track_id", null: false
+    t.string "album_image", default: "", null: false
     t.index ["playlist_id"], name: "index_tracks_on_playlist_id"
   end
 

@@ -41,8 +41,8 @@ class PlaylistIndexContainer extends React.Component {
       )
     })
     return(
-      <div className="row medium-12 large-12">
-        <div>
+      <div>
+        <div className="">
           <div className="index-title">
             PLAYLISTS
           </div>

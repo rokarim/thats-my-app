@@ -1,5 +1,6 @@
 import React from 'react';
 import ActivityTile from '../components/ActivityTile'
+import GenreTile from '../components/GenreTile'
 import TextField from '../components/TextField'
 import FormErrors from '../components/FormErrors'
 
@@ -57,12 +58,12 @@ class FormContainer extends React.Component {
   }
 
   handleSearch(event) {
-    this.handleChange(event)
     event.preventDefault()
+    this.handleChange(event)
     const body = JSON.stringify({
       search_string: this.state.searchString
-   })
-   fetch('/api/v1/genres/search.json',
+    })
+    fetch('/api/v1/genres/search.json',
      { method: "POST",
       body: body,
       credentials: 'same-origin',
@@ -152,7 +153,7 @@ class FormContainer extends React.Component {
   render(){
     let activityClass = ""
     let activities = this.props.activities.map(activity => {
-      if (activity.id === parseInt(this.state.selectedActivity)){
+      if (activity.id == this.state.selectedActivity){
         activityClass = "selected"
       } else {
         activityClass = ""
@@ -170,7 +171,7 @@ class FormContainer extends React.Component {
 
     let genres = this.state.genres.map( genre => {
       return(
-        <ActivityTile
+        <GenreTile
           key={genre.id}
           id={genre.id}
           name={genre.name}
@@ -181,7 +182,7 @@ class FormContainer extends React.Component {
 
     let selectedGenres = this.state.selectedGenres.map( genre => {
       return(
-        <ActivityTile
+        <GenreTile
           key={genre.id}
           id={genre.id}
           name={genre.name}
@@ -193,6 +194,7 @@ class FormContainer extends React.Component {
 
     return(
       <div>
+      <i className="fas fa-times" onClick={this.props.handleFormVisibility}></i>
         <h3>Create a Playlist</h3>
         <div className='errors-display-container'>
           <FormErrors
@@ -209,29 +211,24 @@ class FormContainer extends React.Component {
               handlerFunction={this.handleChange}
               />
               <br />
-              <br />
             <div className="columns large-6 activity-form-container">
               Select one style:
-              <hr />
               <div className="activities-container">
                 {activities}
               </div>
             </div>
-            <br />
-            <br />
             <div className="columns large-6 genre-form-container">
               Select up to 2 genres:
-              <hr />
-              <div className="activities-container">
+              <div className="selected-genres-container">
                 {selectedGenres}
               </div>
-            </div>
               <input className="inputField" type='text' name='searchString' value={this.state.searchString} onChange={this.handleSearch}/>
-              <div className="activities-container">
+              <div className="genres-container">
                 {genres}
               </div>
+            </div>
           </div>
-          <input className="green-button" type="submit" value="Generate" />
+          <input className="generate-button" type="submit" value="Generate" />
         </form>
       </div>
     )

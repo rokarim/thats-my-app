@@ -4,7 +4,8 @@ const TrackTile = props => {
   return(
     <div id={props.id} className="track-tile">
       <div >
-        {props.name} - {props.artist}
+        <img src={props.image} />
+         {props.name} - {props.artist}
       </div>
       <hr />
     </div>

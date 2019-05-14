@@ -1,59 +1,78 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require foundation_and_overrides
+
+ */
+
 body{
-  color: #1b1b1b;
-  /* background-color: #E6E6E6; */
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Convergence', sans-serif;
   margin: 0 10% 10% 10%;
+  font-size: 1.2rem
 }
 
-.top-bar a{
-  text-decoration: none;
-  color: #E32A1C
+nav{
+  margin-right: 10%
 }
 
-.title-area{
+.top-bar{
+  background-color: #FFFFFF;
+  margin-top: 5rem;
+  margin-bottom: 3rem
+}
+
+.name h1 a{
   font-family: 'McLaren', cursive;
-  font-size: 2rem;
-  display: inline-block;
-  list-style-type:none
-}
-
-.selected{
-  background-color: #1CD5E3;
-}
-
-.top-bar-section{
-  display: inline-block;
-  float: right;
-}
-.top-bar-section li{
-  display: list-item;
-  float: right;
-  padding: 10px
+  margin-left: 0;
+  color: #1eb954 !important;
+  font-size: 3rem;
 }
 
 .root-container{
   position: absolute;
-  overflow: hidden;
-  width: 80%
+  width: 100%;
+  margin-top: 2rem
 }
 
+.row {
+  max-width: 100rem;
+}
+
+.top-bar-section ul li > a{
+  color: #B91E83;
+  background-color: #FFFFFF !important;
+}
+
+.top-bar-section ul li > a:hover{
+  color: #B91E83 !important;
+  font-size: 1.1rem
+}
+
+.highligthed{
+  background-color: #2DDD6A;
+}
 /*    INDEX CONTAINER */
 
 .index-container{
   float: left;
-  margin: 0 5% 0 0;
+  margin: 0 ;
   display: inline-block;
 }
 
 .list-container{
-  position: relative;
   overflow: auto;
   height: 600px;
-  width: 400px;
-}
-
-.delete-playlist{
-  float:right;
 }
 
 .playlist-tile{
@@ -71,14 +90,13 @@ body{
 }
 
 .playlist-tile.selected{
-  background-color: #1CD5E3;
-  color: #f8f8f8;
-  font-size: 1.2rem;
+  color: #B91E83;
+  font-size: 1.5rem;
 }
 
 .fa-plus,
 .fa-times{
-  color: #E32A1C;
+  color: #B91E83;
   float: right;
   display: inline-block;
 }
@@ -89,11 +107,13 @@ body{
   display: inline-block;
 }
 
-/* SHOW CONTAINER */
+/* .index-title{
+  background-color: #1eb954;
+  padding-right: 60%;
+  border-radius: 25%
+} */
 
-.show-container{
-  display: inline-block;
-}
+/* SHOW CONTAINER */
 
 .track-tile{
   cursor: pointer;
@@ -102,35 +122,44 @@ body{
 }
 
 .track-list{
-  position: relative;
+  /* position: relative; */
   overflow: auto;
   height: 600px;
-  width: 700px;
+  /* width: 700px; */
 }
 
 .track-list-container{
   display: inline-block;
+  float:left;
+  /* width: 50% */
+}
+
+img{
+  padding-right: 1rem
 }
 
 .playlist-header-container{
   margin-left: 3rem;
   display: inline-block;
   float: right;
+  /* width: 20% */
 }
 
 .playlist-details{
   margin: 2rem;
 }
 
-/* NEW PLAYLIST CONTAINER */
-
-.errors-display-container{
-  color: #E32A1C
+.sub-title{
+  color: #B91E83;
 }
 
-/* .form-new-playlist{
-  display: inline-block;
-} */
+/* NEW PLAYLIST CONTAINER */
+
+.errors-display-container p {
+  color: #E32A1C;
+  width: 30%
+}
+
 .search-bar{
   display: inline-block;
   float:right;
@@ -138,23 +167,124 @@ body{
 
 .item-box{
   margin-right: 1rem;
-  background-color: #3f4347;
-  color: #f8f8f8;
+  color: #a3aab1;
   cursor: pointer;
+  z-index: 2
 }
 
-button{
+.item-box.selected{
+  background-color: #B91E83;
+  color: #FFFFFF;
   height: 30px;
-  width: auto;
+  border-radius: 20px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: inline-block;
+}
+
+.genres-container{
+  overflow: auto;
+  height: 100px;
+}
+
+.item-box.activity{
+  display: inline-block;
+}
+
+.activities-container{
   margin: 1rem
+}
+
+.selected-genres-container{
+  margin:0.5rem
+}
+
+button,
+input[type=submit]{
+  height: 20px;
+  width: auto;
+  padding-bottom: 2rem;
+  border-radius: 25px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+input[type=submit],
+input[type=submit]:focus{
+  background-color: #1eb954;
+  color: #FFFFFF
+}
+
+input[type=submit]:hover{
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+
+.delete-playlist:hover{
+  background-color: #E32A1C;
+  color: #FFFFFF;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
 }
 
 .delete-playlist{
   background-color: #E32A1C;
-  color: #E6E6E6
+  color: #FFFFFF;
+  float: right;
 }
-/* 
-.genre-form-container,
-.activity-form-container{
-  display: inline-block;
-} */
+
+.new-playlist-container{
+  padding:5rem;
+  border-radius: 2px;
+}
+
+.add-to-spotify,
+.mark-as-accurate{
+  background-color: #1eb954
+}
+
+.add-to-spotify:disabled,
+.mark-as-accurate:disabled,
+.add-to-spotify[disabled]:hover,
+.mark-as-accurate[disabled]:hover{
+  background-color: #B91E83
+}
+
+.add-to-spotify:hover,
+.mark-as-accurate:hover{
+  background-color: #1eb954;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+/*   MODAL    */
+
+.form-modal{
+  position:fixed;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.new-playlist-container.visible{
+  position:fixed;
+  left:45%;
+  top:40%;
+  transform:translate(-50%, -50%);
+  border-radius: 5px;
+  background-color:#fff;
+  opacity:1;
+  width: 40%
+
+}
+
+/*  LOG IN    */
+
+.log-in-container{
+  align-items: center;
+}
+.log-in-form{
+  width: 40%;
+}

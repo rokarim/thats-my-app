@@ -4,10 +4,7 @@ const PlaylistTile = props => {
   return(
     <div>
       <div id={props.id} className={`playlist-tile ${props.className}`} onClick={props.setSelectedPlaylist}>
-        <div className="playlist-name" >
           {props.name}
-        </div>
-
       </div>
     </div>
   )

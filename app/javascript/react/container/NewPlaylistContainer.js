@@ -10,6 +10,7 @@ class NewPlaylistContainer extends React.Component {
       user_info: null
     }
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.handleFormVisibility = this.handleFormVisibility.bind(this)
   }
 
   componentDidMount(){
@@ -59,22 +60,28 @@ class NewPlaylistContainer extends React.Component {
 
       } else {
         this.props.setPlaylist(body)
+        this.handleFormVisibility()
       }
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
+  handleFormVisibility(){
+    this.props.changeFormVisibility()
+  }
 
   render(){
     return(
       <div>
-      <div className="form-modal"></div>
-        <div className={`new-playlist-container ${this.props.className}`}>
-          <FormContainer
-            user_info={this.state.user_info}
-            activities={this.state.activities}
-            formSubmit={this.handleFormSubmit}
-            />
+        <div className="form-modal">
+          <div className={`new-playlist-container ${this.props.className}`}>
+            <FormContainer
+              user_info={this.state.user_info}
+              activities={this.state.activities}
+              formSubmit={this.handleFormSubmit}
+              handleFormVisibility={this.handleFormVisibility}
+              />
+          </div>
         </div>
       </div>
     )

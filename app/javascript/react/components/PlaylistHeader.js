@@ -9,18 +9,18 @@ const PlaylistHeader = props => {
   }
   return(
       <div id={props.id} className="playlist-header">
-        PLAYLIST DETAILS
         <hr />
         <div className="playlist-details">
-          Style
+          <span className="sub-title">Style</span>
+          {` ${props.style}`}
           <hr />
-          {props.style}
           <br />
+          <span className="sub-title">Genres</span>
+          {` ${genres.join(", ")}`}
+          <hr />
           <br />
-          Genres<hr />{genres.join(", ")}
-          <br />
-          <br />
-          Number of tracks<hr />{props.length}
+          <span className="sub-title">Number of tracks</span>
+          {` ${props.length}`}
         </div>
       </div>
   )

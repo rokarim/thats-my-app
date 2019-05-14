@@ -2,7 +2,7 @@ require 'rest-client'
 
 class Api::V1::PlaylistsController < ApplicationController
   def index
-    render json: User.find(current_user.id).playlists
+    render json: User.find(current_user.id).playlists.order(created_at: :desc)
   end
 
   def show
@@ -39,9 +39,8 @@ class Api::V1::PlaylistsController < ApplicationController
     url = 'https://api.spotify.com/v1/recommendations'
     headers= {Authorization: "Bearer #{user.access_token}", params: options}
     recommendations = RestClient.get url, headers
-
     JSON.parse(recommendations)["tracks"].each do |track|
-      Track.create(playlist_id: new_playlist.id, spotify_track_id: track["id"], name: track["name"], artist: track["artists"][0]["name"])
+      Track.create(playlist_id: new_playlist.id, spotify_track_id: track["id"], name: track["name"], artist: track["artists"][0]["name"], album_image: track["album"]["images"][2]["url"])
     end
 
     render json: new_playlist

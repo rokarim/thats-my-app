@@ -35,10 +35,10 @@ class PlaylistShowContainer extends React.Component {
     }
   }
 
-  addToSpotify(event){
+  addToSpotify(){
     this.props.updateSaved()
-    let payload={playlist_id: event.target.id}
-    fetch('api/v1/spotify', {
+    let payload={playlist_id: this.state.selectedPlaylist}
+    fetch('/api/v1/spotify', {
       method: 'POST',
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },
@@ -61,9 +61,9 @@ class PlaylistShowContainer extends React.Component {
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
-  markAsAccurate(event){
+  markAsAccurate(){
     this.props.updateAccurate()
-    fetch(`api/v1/playlists/${event.target.id}`, {
+    fetch(`/api/v1/playlists/${this.state.selectedPlaylist}`, {
       method: 'PUT',
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' }
@@ -92,7 +92,9 @@ class PlaylistShowContainer extends React.Component {
     let addToSpotifyButton = ""
     let accurateButtonText = ""
     let markAsAccurate = ""
-    if (this.state.selectedPlaylist !== null && this.state.playlist.tracks !== undefined){
+    if (this.state.selectedPlaylist !== null
+      && this.state.playlist.tracks !== undefined
+    ){
       let status = ""
       let accurateStatus = ""
       let buttonText = ""
@@ -113,9 +115,9 @@ class PlaylistShowContainer extends React.Component {
         accurateButtonText = "This playlist is accurate!"
       }
 
-      addToSpotifyButton = <button id={this.state.selectedPlaylist} className='add-to-spotify' onClick={this.addToSpotify} disabled={status}>{buttonText}</button>
-      markAsAccurate = <button id={this.state.selectedPlaylist} className='mark-as-accurate' onClick={this.markAsAccurate} disabled={accurateStatus}>{accurateButtonText}</button>
-      deleteButton = <button id={this.state.selectedPlaylist} className="delete-playlist" onClick={this.deletePlaylist}>Delete playlist</button>
+      addToSpotifyButton = <button id={this.state.selectedPlaylist} className='add-to-spotify' onClick={this.addToSpotify} disabled={status}><p>{buttonText}</p></button>
+      markAsAccurate = <button id={this.state.selectedPlaylist} className='mark-as-accurate' onClick={this.markAsAccurate} disabled={accurateStatus}><p>{accurateButtonText}</p></button>
+      deleteButton = <button id={this.state.selectedPlaylist} className="delete-playlist" onClick={this.deletePlaylist}><p>Delete playlist</p></button>
 
       tracks = this.state.playlist.tracks.map(track =>{
         return(
@@ -124,6 +126,7 @@ class PlaylistShowContainer extends React.Component {
             id={track.id}
             name={track.name}
             artist={track.artist}
+            image={track.album_image}
             />
         )
       })
@@ -138,16 +141,17 @@ class PlaylistShowContainer extends React.Component {
           />
     }
     return(
-      <div >
-        <div className="playlist-header-container">
+      <div className="row">
+        <div className="playlist-header-container small-3 columns">
+           PLAYLIST DETAILS
           {header}
           {markAsAccurate}
           {addToSpotifyButton}
-          {deleteButton}
+
         </div>
-        <div className="track-list-container">
-        TRACKS
-        <hr />
+        <div className="track-list-container small-8 columns">
+        TRACKS {deleteButton}
+          <hr />
           <div className="track-list">
             {tracks}
           </div>

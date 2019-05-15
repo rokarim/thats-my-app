@@ -29,7 +29,6 @@ class Api::V1::SpotifyController < ApplicationController
     end
     url = "https://api.spotify.com/v1/playlists/#{new_playlist_id}/tracks"
     create_playlist_spotify = RestClient.post url, new_tracks_params.to_json, headers
-    binding.pry
     render json: playlist.id
   end
 end

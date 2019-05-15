@@ -18,8 +18,12 @@
 
 body{
   font-family: 'Convergence', sans-serif;
-  margin: 0 10% 10% 10%;
+  margin: 0 10% 0 10%;
   font-size: 1.2rem
+}
+
+h3{
+  color: #1eb954
 }
 
 .top-bar{
@@ -46,7 +50,7 @@ body{
 }
 
 .row {
-  max-width: 100rem;
+  max-width: 150rem;
 }
 
 .top-bar-section ul li > a{
@@ -196,20 +200,18 @@ img{
 
 button,
 input[type=submit]{
-  height: 20px;
-  width: auto;
-  padding-bottom: 2rem;
-  border-radius: 25px;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  margin-left: 2rem;
-  text-align: center;
+  height: 65px;
+  border-radius: 35px;
+  font-family: 'Convergence', sans-serif;
 }
 
 input[type=submit],
 input[type=submit]:focus{
   background-color: #1eb954;
-  color: #FFFFFF
+  color: #FFFFFF;
+  padding: 1rem 2rem 1rem 2rem;
+  font-size: 1.1rem;
+  font-family: 'Convergence', sans-serif;
 }
 
 input[type=submit]:hover{
@@ -228,6 +230,7 @@ input[type=submit]:hover{
   background-color: #E32A1C;
   color: #FFFFFF;
   float: right;
+  width: auto;
 }
 
 .new-playlist-container{

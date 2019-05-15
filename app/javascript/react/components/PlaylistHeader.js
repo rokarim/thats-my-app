@@ -12,14 +12,17 @@ const PlaylistHeader = props => {
         <hr />
         <div className="playlist-details">
           <span className="sub-title">Style</span>
+          <br />
           {` ${props.style}`}
           <hr />
           <br />
           <span className="sub-title">Genres</span>
+          <br />
           {` ${genres.join(", ")}`}
           <hr />
           <br />
           <span className="sub-title">Number of tracks</span>
+          <br />
           {` ${props.length}`}
         </div>
       </div>

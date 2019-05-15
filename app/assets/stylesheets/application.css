@@ -22,21 +22,21 @@ body{
   font-size: 1.2rem
 }
 
-nav{
-  margin-right: 10%
-}
-
 .top-bar{
+  background-image: url('thatsmyjam.jpg') !important;
+  background-position: center;
   background-color: #FFFFFF;
-  margin-top: 5rem;
-  margin-bottom: 3rem
+  padding-top: 5rem;
+  padding-bottom: 9rem;
+  border-radius: 25px;
+  margin-top: 2rem
 }
 
 .name h1 a{
   font-family: 'McLaren', cursive;
-  margin-left: 0;
+  margin-left: 2rem;
   color: #1eb954 !important;
-  font-size: 3rem;
+  font-size: 4rem;
 }
 
 .root-container{
@@ -50,18 +50,21 @@ nav{
 }
 
 .top-bar-section ul li > a{
-  color: #B91E83;
+  color: #1eb954;
   background-color: #FFFFFF !important;
+  font-family: 'Convergence', sans-serif;
 }
 
 .top-bar-section ul li > a:hover{
-  color: #B91E83 !important;
+  color: #1eb954 !important;
+  font-family: 'Convergence', sans-serif;
   font-size: 1.1rem
 }
 
 .highligthed{
   background-color: #2DDD6A;
 }
+
 /*    INDEX CONTAINER */
 
 .index-container{
@@ -77,27 +80,23 @@ nav{
 
 .playlist-tile{
   background: #fff;
-  border-radius: 2px;
+  border-radius: 15px;
   margin: 0.5rem;
   padding: 10% 10% 10% 10%;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-}
-
-.playlist-tile:hover{
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .playlist-tile.selected{
   background-color: #f4f4f4;
-  color: #B91E83;
+  color: #00A8C6;
   font-size: 1.5rem;
 }
 
 .fa-plus,
 .fa-times{
-  color: #B91E83;
+  color: #1eb954;
   float: right;
   display: inline-block;
 }
@@ -108,25 +107,20 @@ nav{
   display: inline-block;
 }
 
-/* .index-title{
-  background-color: #1eb954;
-  padding-right: 60%;
-  border-radius: 25%
-} */
-
 /* SHOW CONTAINER */
 
 .track-tile{
   cursor: pointer;
   height: 10%;
-  margin: 2rem
+  margin: 2rem;
+  vertical-align: middle;
 }
 
 .track-list{
-  /* position: relative; */
+  background-color: #f4f4f4;
   overflow: auto;
   height: 600px;
-  /* width: 700px; */
+  border-radius: 15px
 }
 
 .track-list-container{
@@ -151,7 +145,7 @@ img{
 }
 
 .sub-title{
-  color: #B91E83;
+  color: #00A8C6;
 }
 
 /* NEW PLAYLIST CONTAINER */
@@ -174,7 +168,7 @@ img{
 }
 
 .item-box.selected{
-  background-color: #B91E83;
+  background-color: #00A8C6;
   color: #FFFFFF;
   height: 30px;
   border-radius: 20px;
@@ -208,6 +202,8 @@ input[type=submit]{
   border-radius: 25px;
   padding-left: 1rem;
   padding-right: 1rem;
+  margin-left: 2rem;
+  text-align: center;
 }
 
 input[type=submit],
@@ -280,7 +276,7 @@ input[type=submit]:hover{
   left:45%;
   top:40%;
   transform:translate(-50%, -50%);
-  border-radius: 5px;
+  border-radius: 25px;
   background-color:#fff;
   opacity:1;
   width: 40%
@@ -290,8 +286,17 @@ input[type=submit]:hover{
 /*  LOG IN    */
 
 .log-in-container{
-  align-items: center;
+  padding-top:5%;
+  margin-left: 30%
 }
 .log-in-form{
   width: 40%;
+}
+
+.log-in-form h2{
+  font-family: 'Convergence', sans-serif;
+}
+
+.actions{
+  text-align: center
 }

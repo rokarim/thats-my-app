@@ -27,7 +27,6 @@ class Api::V1::SpotifyController < ApplicationController
     tracks.each_with_index do |track, index|
       new_tracks_params["uris"].push("spotify:track:#{track.spotify_track_id}")
     end
-
     url = "https://api.spotify.com/v1/playlists/#{new_playlist_id}/tracks"
     create_playlist_spotify = RestClient.post url, new_tracks_params.to_json, headers
     binding.pry

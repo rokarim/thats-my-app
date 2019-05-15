@@ -17,9 +17,8 @@
  */
 
 body{
-  background-color: #f8f8f8;
   font-family: 'Convergence', sans-serif;
-  margin: 0 10% 0 10%;
+  margin: 0 10% 10% 10%;
   font-size: 1.2rem
 }
 
@@ -28,7 +27,7 @@ nav{
 }
 
 .top-bar{
-  background-color: #f8f8f8;
+  background-color: #FFFFFF;
   margin-top: 5rem;
   margin-bottom: 3rem
 }
@@ -52,7 +51,7 @@ nav{
 
 .top-bar-section ul li > a{
   color: #B91E83;
-  background-color: #f8f8f8 !important;
+  background-color: #FFFFFF !important;
 }
 
 .top-bar-section ul li > a:hover{
@@ -91,6 +90,7 @@ nav{
 }
 
 .playlist-tile.selected{
+  background-color: #f4f4f4;
   color: #B91E83;
   font-size: 1.5rem;
 }
@@ -245,10 +245,16 @@ input[type=submit]:hover{
 }
 
 .add-to-spotify:disabled,
-.mark-as-accurate:disabled,
-.add-to-spotify[disabled]:hover,
-.mark-as-accurate[disabled]:hover{
-  background-color: #B91E83
+.mark-as-accurate:disabled{
+  background-color: #f4f4f4;
+  color: #000000;
+}
+
+.add-to-spotify:disabled:hover,
+.mark-as-accurate:disabled:hover{
+  background-color: #f4f4f4;
+  color: #000000;
+  box-shadow: none
 }
 
 .add-to-spotify:hover,

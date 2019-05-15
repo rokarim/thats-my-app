@@ -71,6 +71,7 @@ class RootContainer extends React.Component {
                     playlistToShow: playlist,
                     accurate: playlist.accurate,
                     saved: playlist.saved})
+    this.getPlaylists()
   }
 
   updateAccurate(){
@@ -108,7 +109,7 @@ class RootContainer extends React.Component {
               showForm={this.showForm}
             />
           </div>
-          <div className="show-container small-9 columns">
+          <div className="show-container small-8 columns">
             <PlaylistShowContainer
               selectedPlaylist={this.state.selectedPlaylist}
               playlistToShow={this.state.playlistToShow}

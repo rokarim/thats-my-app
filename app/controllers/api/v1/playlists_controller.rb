@@ -51,7 +51,7 @@ class Api::V1::PlaylistsController < ApplicationController
     accurate_playlist.accurate = true
     accurate_playlist.save
 
-    render json: accurate_playlist.id
+    render json: accurate_playlist
   end
 
   def destroy

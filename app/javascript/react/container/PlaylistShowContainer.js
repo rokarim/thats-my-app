@@ -104,7 +104,7 @@ class PlaylistShowContainer extends React.Component {
         buttonText = "Create on Spotify"
       } else {
         status = "disabled"
-        buttonText = "Check it out on Spotify!"
+        buttonText = "Check it on Spotify!"
       }
 
       if (this.state.accurate === false){
@@ -112,7 +112,7 @@ class PlaylistShowContainer extends React.Component {
         accurateButtonText = "Mark as accurate"
       } else {
         accurateStatus = "disabled"
-        accurateButtonText = "This playlist is accurate!"
+        accurateButtonText = "It is accurate!"
       }
 
       addToSpotifyButton = <button id={this.state.selectedPlaylist} className='add-to-spotify' onClick={this.addToSpotify} disabled={status}><p>{buttonText}</p></button>
@@ -142,14 +142,15 @@ class PlaylistShowContainer extends React.Component {
     }
     return(
       <div className="row">
-        <div className="playlist-header-container small-3 columns">
+        <div className="playlist-header-container small-2 columns">
            PLAYLIST DETAILS
           {header}
           {markAsAccurate}
+          <br />
           {addToSpotifyButton}
 
         </div>
-        <div className="track-list-container small-8 columns">
+        <div className="track-list-container small-9 columns">
         TRACKS {deleteButton}
           <hr />
           <div className="track-list">

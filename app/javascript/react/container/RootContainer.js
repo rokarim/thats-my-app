@@ -2,6 +2,7 @@ import React from 'react';
 import NewPlaylistContainer from './NewPlaylistContainer'
 import PlaylistShowContainer from './PlaylistShowContainer'
 import PlaylistIndexContainer from './PlaylistIndexContainer'
+import Player from '../components/Player'
 
 class RootContainer extends React.Component {
   constructor(props) {
@@ -124,6 +125,10 @@ class RootContainer extends React.Component {
         </div>
         <div className="new-playlist-container">
           {newPlaylist}
+        </div>
+        <div>
+          <Player
+            playlist={this.state.playlistToShow}/>
         </div>
       </div>
     )

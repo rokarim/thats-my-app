@@ -31,4 +31,19 @@ class Api::V1::SpotifyController < ApplicationController
     create_playlist_spotify = RestClient.post url, new_tracks_params.to_json, headers
     render json: playlist.id
   end
+
+  def update
+    playlist = Playlist.find(params[:id])
+    user = playlist.selection.user
+    tracks = playlist.tracks
+    params = {}
+    params["uris"] = []
+    tracks.each_with_index do |track, index|
+      params["uris"].push("spotify:track:#{track.spotify_track_id}")
+    end
+    headers = {Authorization: "Bearer #{user.access_token}"}
+    url = "https://api.spotify.com/v1/me/player/play"
+    RestClient.put url, params.to_json, headers
+    binding.pry
+  end
 end

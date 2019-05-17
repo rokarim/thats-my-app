@@ -6,7 +6,24 @@ class LoginController < ApplicationController
       client_id: ENV['CLIENT_ID'],
       response_type: "code",
       redirect_uri: ENV['REDIRECT_URI'],
-      scope: "user-modify-playback-state user-read-email playlist-modify-public playlist-modify-private user-library-read user-library-modify",
+      scope: "user-read-recently-played
+      user-top-read
+      user-library-modify
+      user-library-read
+      playlist-read-private
+      playlist-modify-public
+      playlist-modify-private
+      playlist-read-collaborative
+      user-read-email
+      user-read-birthdate
+      user-read-private
+      user-read-playback-state
+      user-modify-playback-state
+      user-read-currently-playing
+      app-remote-control
+      streaming
+      user-follow-read
+      user-follow-modify",
       show_dialog: true
     }
     url = "http://accounts.spotify.com/authorize/"
@@ -33,9 +50,8 @@ class LoginController < ApplicationController
     }
     user_response = RestClient.get("https://api.spotify.com/v1/me", header)
     user_params = JSON.parse(user_response.body)
-    @user = User.find(current_user.id)
-    @user.update(username: user_params["id"], access_token: authorization_params["access_token"], refresh_token: authorization_params["refresh_token"])
-
+    user = User.find(current_user.id)
+    user.update(username: user_params["id"], access_token: authorization_params["access_token"], refresh_token: authorization_params["refresh_token"])
     redirect_to root_path
   end
 end

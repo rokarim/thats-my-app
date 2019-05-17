@@ -8,6 +8,7 @@ class Player extends React.Component {
       playlist: null
     }
     this.playNextTrack=this.playNextTrack.bind(this)
+    this.playPrevTrack=this.playPrevTrack.bind(this)
     this.loadPlaylist=this.loadPlaylist.bind(this)
   }
 
@@ -16,50 +17,97 @@ class Player extends React.Component {
   }
 
   componentDidMount(){
-    window.onSpotifyWebPlaybackSDKReady = () => {
-    const token = 'BQBOQZf3ir4z66g20cnXwfeJsNs1TlyDRZ4m5SiV4zgUwe6pgwEyKXxHGZBYsYE7hr4tEmq2ndcO0GlyJFazOZisyBYQgUhBkjmZFC100Z2V28IBlGoPHB4tnPO9_p88bx2e-pQvHfa3_rSGzfyCEESCvMyBYLsBijUPek96Yg';
-    this.setState({player: new Spotify.Player({
-      name: 'ThatsMyJam',
-      getOAuthToken: cb => { cb(token); }
+    fetch("/api/v1/spotify")
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status}(${response.statusText})` ,
+          error = new Error(errorMessage);
+          throw(error);
+        }
       })
-    })
+      .then(response => response.json())
+      .then(body => {
+        loadPlayer(body.access_token)
+      })
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
 
-      // Error handling
-      this.state.player.addListener('initialization_error', ({ message }) => { console.error(message); });
-      this.state.player.addListener('authentication_error', ({ message }) => { console.error(message); });
-      this.state.player.addListener('account_error', ({ message }) => { console.error(message); });
-      this.state.player.addListener('playback_error', ({ message }) => { console.error(message); });
+      let loadPlayer = (token) => {
+        if(this.state.player === null){
+          this.setState({player: new Spotify.Player({
+              name: 'ThatsMyJam',
+              getOAuthToken: cb => { cb(token); }
+              })
+            })
+            // Error handling
+            this.state.player.addListener('initialization_error', ({ message }) => { console.error(message); });
+            this.state.player.addListener('authentication_error', ({ message }) => { console.error(message); });
+            this.state.player.addListener('account_error', ({ message }) => { console.error(message); });
+            this.state.player.addListener('playback_error', ({ message }) => { console.error(message); });
 
-      // Playback status updates
-      this.state.player.addListener('player_state_changed', state => { console.log(state); });
+            // Playback status updates
+            this.state.player.addListener('player_state_changed', state => { console.log(state); });
 
-      // Ready
-      this.state.player.addListener('ready', ({ device_id }) => {
-        console.log('Ready with Device ID', device_id);
-      });
-      this.state.player.addListener('not_ready', ({ device_id }) => {
-        console.log('Device ID has gone offline', device_id);
-      });
-      // Connect to the player!
-      this.state.player.connect();
-    }
+            // Ready
+            this.state.player.addListener('ready', ({ device_id }) => {
+              console.log('Ready with Device ID', device_id);
+            });
+            this.state.player.addListener('not_ready', ({ device_id }) => {
+              console.log('Device ID has gone offline', device_id);
+            });
+            // Connect to the player!
+            this.state.player.connect();
+          }
+      }
   }
 
   playNextTrack(){
-    this.state.player.getCurrentState().then(state => {
-      if (!state) {
-        console.error('User is not playing music through the Web Playback SDK');
-        return;
-      }
-
-      let {
-        current_track,
-        next_tracks: [next_track]
-      } = state.track_window;
-
-      console.log('Currently Playing', current_track);
-      console.log('Playing Next', next_track);
+    fetch('/api/v1/spotify/next', {
+      method: 'POST',
+      body: this.state.playlist.id,
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' }
     })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          // if (response.status === 500){
+          //   window.location.href = '/users/sign_in'
+          // }
+          let errorMessage = `${response.status}(${response.statusText})` ,
+          error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => response.json())
+      .then(body => {  })
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  playPrevTrack(){
+    fetch('/api/v1/spotify/previous', {
+      method: 'POST',
+      body: this.state.playlist.id,
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          // if (response.status === 500){
+          //   window.location.href = '/users/sign_in'
+          // }
+          let errorMessage = `${response.status}(${response.statusText})` ,
+          error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => response.json())
+      .then(body => {  })
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   loadPlaylist(){
@@ -72,23 +120,26 @@ class Player extends React.Component {
         if (response.ok) {
           return response;
         } else {
-          if (response.status === 500){
-            window.location.href = '/users/sign_in'
-          }
+          // if (response.status === 500){
+          //   window.location.href = '/users/sign_in'
+          // }
           let errorMessage = `${response.status}(${response.statusText})` ,
           error = new Error(errorMessage);
           throw(error);
         }
       })
       .then(response => response.json())
-      .then(body => { })
+      .then(body => { console.log(body.body); })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   render(){
+
     return(
-      <div>
-        <button onClick={this.loadPlaylist}>Next</button>
+      <div className="player">
+        <button className="player-controls" onClick={this.playPrevTrack}><i className="fas fa-backward"></i></button>
+        <button className="player-controls" onClick={this.loadPlaylist}><i className="fas fa-play"></i></button>
+        <button className="player-controls" onClick={this.playNextTrack}><i className="fas fa-forward"></i></button>
       </div>
     )
   }

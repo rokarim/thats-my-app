@@ -13,7 +13,8 @@ class RootContainer extends React.Component {
       playlistToShow: null,
       accurate: false,
       saved: false,
-      formVisible: false
+      formVisible: false,
+      access_token: ""
     }
     this.getPlaylists = this.getPlaylists.bind(this)
     this.getPlaylistSelected = this.getPlaylistSelected.bind(this)
@@ -100,7 +101,7 @@ class RootContainer extends React.Component {
         />
     }
     return(
-      <div className="row root-container">
+      <div className="root-container">
         <div className="row">
           <div className="index-container small-3 columns">
             <PlaylistIndexContainer
@@ -123,12 +124,13 @@ class RootContainer extends React.Component {
             />
           </div>
         </div>
-        <div className="new-playlist-container">
-          {newPlaylist}
-        </div>
-        <div>
+        <div className="player-container">
           <Player
-            playlist={this.state.playlistToShow}/>
+            playlist={this.state.playlistToShow}
+            />
+        </div>
+        <div className="new-playlist-container">
+        {newPlaylist}
         </div>
       </div>
     )

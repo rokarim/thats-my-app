@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :playlists, only: [:index, :show, :new, :update, :create, :destroy]
-      resources :spotify, only: [:create, :update]
+      resources :spotify, only: [:index, :create, :update]
+      post '/spotify/previous', to: 'spotify#previous'
+      post '/spotify/next', to: 'spotify#next'
       post '/genres/search', to: 'genres#search'
     end
   end

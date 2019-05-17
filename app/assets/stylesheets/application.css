@@ -19,7 +19,7 @@
 body{
   font-family: 'Convergence', sans-serif;
   margin: 0 10% 0 10%;
-  font-size: 1.2rem
+  font-size: 1.4rem
 }
 
 h3{
@@ -46,7 +46,7 @@ h3{
 .root-container{
   position: absolute;
   width: 100%;
-  margin-top: 2rem
+  margin-top: 4rem
 }
 
 .row {
@@ -73,8 +73,6 @@ h3{
 
 .index-container{
   float: left;
-  margin: 0 ;
-  display: inline-block;
 }
 
 .list-container{
@@ -103,6 +101,7 @@ h3{
   color: #1eb954;
   float: right;
   display: inline-block;
+  cursor: pointer;
 }
 
 .index-title,
@@ -128,7 +127,7 @@ h3{
 }
 
 .track-list-container{
-  display: inline-block;
+  /* display: inline-block; */
   float:left;
   /* width: 50% */
 }
@@ -139,9 +138,7 @@ img{
 
 .playlist-header-container{
   margin-left: 3rem;
-  display: inline-block;
   float: right;
-  /* width: 20% */
 }
 
 .playlist-details{
@@ -302,4 +299,34 @@ input[type=submit]:hover{
 
 .actions{
   text-align: center
+}
+
+/* PLAYER */
+
+.player-container{
+  text-align: center;
+  margin-top: 3rem
+}
+
+.player{
+  text-align: center;
+}
+
+.player-controls,
+.player-controls:focus{
+  background-color: #FFFFFF;
+  color:#000000;
+  font-size: 1.5rem
+}
+
+.player-controls:hover{
+  background-color: #1eb954
+}
+.player-controls:active{
+  background-color: #1eb954;
+}
+
+.fa-play{
+  margin-left: 3rem;
+  margin-right: 3rem;
 }

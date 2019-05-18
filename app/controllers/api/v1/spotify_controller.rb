@@ -64,22 +64,4 @@ class Api::V1::SpotifyController < ApplicationController
     url = "https://api.spotify.com/v1/me/player/play"
     RestClient.put url, params.to_json, headers
   end
-
-  def next
-    response = JSON.parse(request.body.read)
-    playlist = Playlist.find(response)
-    user = playlist.selection.user
-    headers = {Authorization: "Bearer #{user.access_token}"}
-    url = "https://api.spotify.com/v1/me/player/next"
-    RestClient.post url, "", headers
-  end
-
-  def previous
-    response = JSON.parse(request.body.read)
-    playlist = Playlist.find(response)
-    user = playlist.selection.user
-    headers = {Authorization: "Bearer #{user.access_token}"}
-    url = "https://api.spotify.com/v1/me/player/previous"
-    RestClient.post url, "", headers
-  end
 end

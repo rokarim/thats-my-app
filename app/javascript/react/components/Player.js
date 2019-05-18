@@ -5,11 +5,14 @@ class Player extends React.Component {
     super(props);
     this.state = {
       player: null,
-      playlist: null
+      playlist: null,
+      playerState: null
     }
     this.playNextTrack=this.playNextTrack.bind(this)
     this.playPrevTrack=this.playPrevTrack.bind(this)
+    this.stop=this.stop.bind(this)
     this.loadPlaylist=this.loadPlaylist.bind(this)
+    this.handlePlayerChange=this.handlePlayerChange.bind(this)
   }
 
   componentWillReceiveProps(newProps){
@@ -47,7 +50,11 @@ class Player extends React.Component {
             this.state.player.addListener('playback_error', ({ message }) => { console.error(message); });
 
             // Playback status updates
-            this.state.player.addListener('player_state_changed', state => { console.log(state); });
+            this.state.player.addListener('player_state_changed', state => {
+
+              this.setState({playerState: state.track_window.current_track});
+              this.handlePlayerChange(state.track_window.current_track.id)
+            });
 
             // Ready
             this.state.player.addListener('ready', ({ device_id }) => {
@@ -62,52 +69,30 @@ class Player extends React.Component {
       }
   }
 
+  handlePlayerChange(track){
+    this.props.displayNowPlaying(track)
+  }
+
   playNextTrack(){
-    fetch('/api/v1/spotify/next', {
-      method: 'POST',
-      body: this.state.playlist.id,
-      credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(response => {
-        if (response.ok) {
-          return response;
-        } else {
-          // if (response.status === 500){
-          //   window.location.href = '/users/sign_in'
-          // }
-          let errorMessage = `${response.status}(${response.statusText})` ,
-          error = new Error(errorMessage);
-          throw(error);
-        }
-      })
-      .then(response => response.json())
-      .then(body => {  })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+    this.state.player.nextTrack().then(() => {
+      console.log('Skipped to next track!');
+    });
+    this.state.player.addListener('player_state_changed', state => { this.setState({playerState: state.track_window.current_track});
+                                                                      this.handlePlayerChange(state.track_window.current_track.id)});
   }
 
   playPrevTrack(){
-    fetch('/api/v1/spotify/previous', {
-      method: 'POST',
-      body: this.state.playlist.id,
-      credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(response => {
-        if (response.ok) {
-          return response;
-        } else {
-          // if (response.status === 500){
-          //   window.location.href = '/users/sign_in'
-          // }
-          let errorMessage = `${response.status}(${response.statusText})` ,
-          error = new Error(errorMessage);
-          throw(error);
-        }
-      })
-      .then(response => response.json())
-      .then(body => {  })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+    this.state.player.previousTrack().then(() => {
+      console.log('Set to previous track!');
+    });
+    this.state.player.addListener('player_state_changed', state => { this.setState({playerState: state.track_window.current_track});
+                                                                      this.handlePlayerChange(state.track_window.current_track.id)});
+  }
+
+  stop(){
+    this.state.player.pause().then(() => {
+      console.log('Paused!');
+    });
   }
 
   loadPlaylist(){
@@ -120,9 +105,9 @@ class Player extends React.Component {
         if (response.ok) {
           return response;
         } else {
-          // if (response.status === 500){
-          //   window.location.href = '/users/sign_in'
-          // }
+          if (response.status === 500){
+            // window.location.href = '/users/sign_in'
+          }
           let errorMessage = `${response.status}(${response.statusText})` ,
           error = new Error(errorMessage);
           throw(error);
@@ -130,16 +115,30 @@ class Player extends React.Component {
       })
       .then(response => response.json())
       .then(body => { console.log(body.body); })
-      .catch(error => console.error(`Error in fetch: ${error.message}`));
+      .catch(error => {
+        console.error(`Error in fetch: ${error.message}`)
+        // window.location.href = '/users/sign_in'
+      });
   }
 
   render(){
-
+    let nowPlaying = ""
+    if(this.state.playerState !== null){
+      nowPlaying = <p> {this.state.playerState.name} - {this.state.playerState.artists[0].name}</p>
+    }
     return(
-      <div className="player">
-        <button className="player-controls" onClick={this.playPrevTrack}><i className="fas fa-backward"></i></button>
-        <button className="player-controls" onClick={this.loadPlaylist}><i className="fas fa-play"></i></button>
-        <button className="player-controls" onClick={this.playNextTrack}><i className="fas fa-forward"></i></button>
+      <div className="player-container">
+        <div className="now-playing">
+          {nowPlaying}
+        </div>
+        <br />
+        <br />
+        <div className="player">
+          <button className="player-controls" onClick={this.playPrevTrack}><i className="fas fa-backward"></i></button>
+          <button className="player-controls" onClick={this.loadPlaylist}><i className="fas fa-play"></i></button>
+          <button className="player-controls" onClick={this.stop}><i className="fas fa-stop"></i></button>
+          <button className="player-controls" onClick={this.playNextTrack}><i className="fas fa-forward"></i></button>
+        </div>
       </div>
     )
   }

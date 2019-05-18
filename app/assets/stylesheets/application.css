@@ -104,6 +104,12 @@ h3{
   cursor: pointer;
 }
 
+.empty-track-list{
+  color: #1eb954;
+  font-size: 15rem;
+  text-align: center;
+}
+
 .index-title,
 .playlist-name,
 .delete-playlist{
@@ -119,6 +125,11 @@ h3{
   vertical-align: middle;
 }
 
+.playing{
+  /* background-color: #1eb954; */
+  color: #1eb954
+}
+
 .track-list{
   background-color: #f4f4f4;
   overflow: auto;
@@ -127,9 +138,7 @@ h3{
 }
 
 .track-list-container{
-  /* display: inline-block; */
   float:left;
-  /* width: 50% */
 }
 
 img{
@@ -200,6 +209,7 @@ input[type=submit]{
   height: 65px;
   border-radius: 35px;
   font-family: 'Convergence', sans-serif;
+  outline: 0 none;
 }
 
 input[type=submit],
@@ -280,7 +290,6 @@ input[type=submit]:hover{
   background-color:#fff;
   opacity:1;
   width: 40%
-
 }
 
 /*  LOG IN    */
@@ -310,13 +319,19 @@ input[type=submit]:hover{
 
 .player{
   text-align: center;
+  border-style: solid;
+  border-radius: 25px;
+  padding-top: 1rem;
+  display: inline-block;
+
 }
 
 .player-controls,
 .player-controls:focus{
   background-color: #FFFFFF;
   color:#000000;
-  font-size: 1.5rem
+  font-size: 1.5rem;
+  outline: 0 none;
 }
 
 .player-controls:hover{
@@ -326,7 +341,19 @@ input[type=submit]:hover{
   background-color: #1eb954;
 }
 
-.fa-play{
-  margin-left: 3rem;
-  margin-right: 3rem;
+.now-playing{
+  background-color: #1eb954;
+  border-radius: 15px;
+  width: 50%;
+  text-align: center;
+  display: inline;
+  color: #FFFFFF;
+}
+
+.now-playing p{
+
+  word-wrap: normal;
+  display: inline;
+  padding-left: 15rem;
+  padding-right: 15rem
 }

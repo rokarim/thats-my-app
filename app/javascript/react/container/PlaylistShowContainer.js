@@ -8,7 +8,8 @@ class PlaylistShowContainer extends React.Component {
       selectedPlaylist: null,
       playlist: [],
       accurate: false,
-      saved: false
+      saved: false,
+      nowPlaying: ""
     }
     this.deletePlaylist=this.deletePlaylist.bind(this)
     this.addToSpotify=this.addToSpotify.bind(this)
@@ -19,7 +20,8 @@ class PlaylistShowContainer extends React.Component {
     this.setState({selectedPlaylist: newProps.selectedPlaylist,
                   playlist: newProps.playlistToShow,
                   accurate: newProps.accurate,
-                  saved: newProps.saved,})
+                  saved: newProps.saved,
+                  nowPlaying: newProps.nowPlaying})
   }
 
   deletePlaylist(){
@@ -87,14 +89,15 @@ class PlaylistShowContainer extends React.Component {
 
   render(){
     let header = ""
-    let tracks = "No tracks to show"
+    let tracks = <div className="empty-track-list">
+                  <i className="fas fa-compact-disc "></i>
+                </div>
     let deleteButton = ""
     let addToSpotifyButton = ""
     let accurateButtonText = ""
     let markAsAccurate = ""
     if (this.state.selectedPlaylist !== null
-      && this.state.playlist.tracks !== undefined
-    ){
+      && this.state.playlist.tracks !== undefined){
       let status = ""
       let accurateStatus = ""
       let buttonText = ""
@@ -119,7 +122,13 @@ class PlaylistShowContainer extends React.Component {
       markAsAccurate = <button id={this.state.selectedPlaylist} className='mark-as-accurate' onClick={this.markAsAccurate} disabled={accurateStatus}><p>{accurateButtonText}</p></button>
       deleteButton = <button id={this.state.selectedPlaylist} className="delete-playlist" onClick={this.deletePlaylist}><p>Delete playlist</p></button>
 
+      let className = ""
       tracks = this.state.playlist.tracks.map(track =>{
+        if(track.spotify_track_id === this.state.nowPlaying){
+          className = "playing"
+        }else {
+          className = ""
+        }
         return(
           <TrackTile
             key={track.spotify_track_id}
@@ -127,6 +136,7 @@ class PlaylistShowContainer extends React.Component {
             name={track.name}
             artist={track.artist}
             image={track.album_image}
+            className={className}
             />
         )
       })

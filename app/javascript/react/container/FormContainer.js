@@ -3,6 +3,7 @@ import ActivityTile from '../components/ActivityTile'
 import GenreTile from '../components/GenreTile'
 import TextField from '../components/TextField'
 import FormErrors from '../components/FormErrors'
+import ToolTip from '../components/ToolTip'
 
 class FormContainer extends React.Component {
   constructor(props) {
@@ -13,7 +14,9 @@ class FormContainer extends React.Component {
       selectedGenres: [],
       searchString: "",
       name: "",
-      formErrors: {}
+      formErrors: {},
+      tooltipVisible: false,
+      position: {left: 0, top: 0}
     }
     this.handleClickActivities = this.handleClickActivities.bind(this)
     this.handleClickGenre = this.handleClickGenre.bind(this)
@@ -25,6 +28,7 @@ class FormContainer extends React.Component {
     this.validateActivity = this.validateActivity.bind(this)
     this.validateGenre = this.validateGenre.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.handleTooltip=this.handleTooltip.bind(this)
   }
 
   componentDidMount(){
@@ -137,6 +141,12 @@ class FormContainer extends React.Component {
     }
   }
 
+  handleTooltip(e){
+    this.setState({tooltipVisible: !this.state.tooltipVisible,
+                  position: { left: e.clientX - window.innerWidth/2.1,
+                              top: e.clientY - window.innerHeight/2.8} })
+  }
+
   handleFormSubmit(event){
     event.preventDefault();
     if (this.validateName(this.state.name) && this.validateActivity(this.state.selectedActivity) && this.validateGenre(this.state.selectedGenres)){
@@ -192,9 +202,17 @@ class FormContainer extends React.Component {
       )
     })
 
+    let tooltip = ""
+    if(this.state.tooltipVisible === true){
+      tooltip = <ToolTip
+                  position={"left"}
+                  style={this.state.position}
+                  title={"Close"}/>
+    }
+
     return(
       <div>
-      <i className="fas fa-times" onClick={this.props.handleFormVisibility}></i>
+      <i className="fas fa-times" onClick={this.props.handleFormVisibility} onMouseOver={this.handleTooltip} onMouseOut={this.handleTooltip}></i>
         <h3>Create a Playlist</h3>
         <div className='errors-display-container'>
           <FormErrors
@@ -225,6 +243,7 @@ class FormContainer extends React.Component {
               <input className="inputField" type='text' name='searchString' value={this.state.searchString} onChange={this.handleSearch}/>
               <div className="genres-container">
                 {genres}
+                {tooltip}
               </div>
             </div>
           </div>

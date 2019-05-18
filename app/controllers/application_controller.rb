@@ -25,7 +25,6 @@ class ApplicationController < ActionController::Base
         user.update(access_token: authorization_params["access_token"])
       else
         redirect_to login_index_path
-        binding.pry
         return :invalid_request
       end
     end

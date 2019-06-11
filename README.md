@@ -16,5 +16,11 @@ REDIRECT_URI='http://localhost:3000/login/callback'
 
 * Configuration and Database initialization:
 On the project path run the following commands
+yarn install
 bundle exec bundle install
 bundle exec rake db:create && bundle exec rake db:migrate && bundle exec rake db:seed
+
+* Running locally:
+On the project path run the following commands
+rails s
+yarn start

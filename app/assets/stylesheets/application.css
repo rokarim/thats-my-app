@@ -355,3 +355,12 @@ input[type=submit]:hover{
   padding-left: 15rem;
   padding-right: 15rem
 }
+
+.splash-container{
+  text-align: center;
+  padding-top: 10%;
+  font-size: 2rem
+}
+
+.splash-message{
+}

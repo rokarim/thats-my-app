@@ -52,6 +52,6 @@ class LoginController < ApplicationController
     user_params = JSON.parse(user_response.body)
     user = User.find(current_user.id)
     user.update(username: user_params["id"], access_token: authorization_params["access_token"], refresh_token: authorization_params["refresh_token"])
-    redirect_to root_path
+    redirect_to playlists_path
   end
 end

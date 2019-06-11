@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root 'playlists#index'
+  root 'splash#index'
   get 'login/callback', to: 'login#callback'
   resources :playlists, only: [:index]
   resources :login, only: [:index]

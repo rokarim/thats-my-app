@@ -18,7 +18,7 @@
 
 body{
   font-family: 'Convergence', sans-serif;
-  margin: 0 10% 0 10%;
+  margin: 0 4% 0 4%;
 }
 
 h3{
@@ -29,8 +29,8 @@ h3{
   background-image: url('thatsmyjam.jpg') !important;
   background-position: center;
   background-color: #FFFFFF;
-  padding-top: 5rem;
-  padding-bottom: 9rem;
+  padding-top: 4rem;
+  padding-bottom: 7rem;
   border-radius: 25px;
   margin-top: 2rem
 }
@@ -39,17 +39,17 @@ h3{
   font-family: 'Righteous', cursive;
   margin-left: 2rem;
   color: #1eb954 !important;
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .root-container{
   position: absolute;
   width: 100%;
-  margin-top: 4rem
+  margin-top: 3rem
 }
 
 .row {
-  max-width: 150rem;
+  max-width: 140rem;
 }
 
 .top-bar-section ul li > a{
@@ -76,7 +76,7 @@ h3{
 
 .list-container{
   overflow: auto;
-  height: 600px;
+  height: 500px;
 }
 
 .playlist-tile{
@@ -85,14 +85,13 @@ h3{
   margin: 0.5rem;
   padding: 10% 10% 10% 10%;
   cursor: pointer;
-  /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
 .playlist-tile.selected{
   background-color: #f4f4f4;
   color: #00A8C6;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .fa-plus,
@@ -105,7 +104,7 @@ h3{
 
 .empty-track-list{
   color: #1eb954;
-  font-size: 15rem;
+  font-size: 10rem;
   text-align: center;
 }
 
@@ -125,14 +124,13 @@ h3{
 }
 
 .playing{
-  /* background-color: #1eb954; */
   color: #1eb954
 }
 
 .track-list{
   background-color: #f4f4f4;
   overflow: auto;
-  height: 600px;
+  height: 455px;
   border-radius: 15px
 }
 
@@ -147,10 +145,6 @@ img{
 .playlist-header-container{
   margin-left: 3rem;
   float: right;
-}
-
-.playlist-details{
-  margin: 2rem;
 }
 
 .sub-title{
@@ -216,7 +210,7 @@ input[type=submit]:focus{
   background-color: #1eb954;
   color: #FFFFFF;
   padding: 1rem 2rem 1rem 2rem;
-  font-size: 1.1rem;
+  font-size: 0.5rem;
   font-family: 'Convergence', sans-serif;
 }
 
@@ -224,12 +218,10 @@ input[type=submit]:hover{
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
-
 .delete-playlist:hover{
   background-color: #E32A1C;
   color: #FFFFFF;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-
 }
 
 .delete-playlist{
@@ -313,7 +305,6 @@ input[type=submit]:hover{
 
 .player-container{
   text-align: center;
-  margin-top: 3rem
 }
 
 .player{
@@ -322,7 +313,6 @@ input[type=submit]:hover{
   border-radius: 25px;
   padding-top: 1rem;
   display: inline-block;
-
 }
 
 .player-controls,
@@ -360,7 +350,4 @@ input[type=submit]:hover{
   text-align: center;
   padding-top: 10%;
   font-size: 2rem
-}
-
-.splash-message{
 }

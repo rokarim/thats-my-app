@@ -104,10 +104,10 @@ class PlaylistShowContainer extends React.Component {
 
       if (this.state.saved === false){
         status = ""
-        buttonText = "Create on Spotify"
+        buttonText = "Save on Spotify"
       } else {
         status = "disabled"
-        buttonText = "Check it on Spotify!"
+        buttonText = "Saved to Spotify!"
       }
 
       if (this.state.accurate === false){
@@ -115,7 +115,7 @@ class PlaylistShowContainer extends React.Component {
         accurateButtonText = "Mark as accurate"
       } else {
         accurateStatus = "disabled"
-        accurateButtonText = "It is accurate!"
+        accurateButtonText = "It's accurate!"
       }
 
       addToSpotifyButton = <button id={this.state.selectedPlaylist} className='add-to-spotify' onClick={this.addToSpotify} disabled={status}><p>{buttonText}</p></button>
